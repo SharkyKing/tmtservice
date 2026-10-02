@@ -1,0 +1,40 @@
+# robots.txt for Autoservisas TMT — https://www.tmt.lt
+# Leidžiamas pilnas indeksavimas visiems crawler'iams
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*.json$
+Crawl-delay: 1
+
+# Konkretūs bot'ai
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Pikti bot'ai — blokuojame
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Sitemap
+Sitemap: https://www.tmt.lt/sitemap.xml
+
+# Hosted by
+# Įmonė: UAB TMT — https://www.tmt.lt

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://www.tmt.lt/</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="lt" href="https://www.tmt.lt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tmt.lt/"/>
+    <image:image>
+      <image:loc>https://www.tmt.lt/og-image.png</image:loc>
+      <image:title>Autoservisas TMT – Vokiškų automobilių remontas Kaune</image:title>
+      <image:caption>UAB TMT logotipas ir pagrindinis vaizdas</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.tmt.lt/autoserviso-paslaugos</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="lt" href="https://www.tmt.lt/autoserviso-paslaugos"/>
+  </url>
+
+  <url>
+    <loc>https://www.tmt.lt/valdymo-bloku-remontas</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="lt" href="https://www.tmt.lt/valdymo-bloku-remontas"/>
+  </url>
+
+  <url>
+    <loc>https://www.tmt.lt/valdymo-bloku-remontas/galerija</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.tmt.lt/valdymo-bloku-remontas/kainos</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://www.tmt.lt/metalo-suvirinimas</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.tmt.lt/kontaktai</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <url>
+    <loc>https://www.tmt.lt/kontaktai/kaip-mus-rasti</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://www.tmt.lt/registracija</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+</urlset>

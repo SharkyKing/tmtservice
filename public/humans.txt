@@ -1,0 +1,15 @@
+/* TEAM */
+Įmonė: UAB „TMT"
+Veikla: Vokiškų automobilių remontas, DSG ir automatinių pavarų dėžių valdymo blokų remontas
+Adresas: Beržų g. 2R, Ringaudų k., Kauno rajono savivaldybė, LT-53335
+Telefonai: +370 37 563 222, +370 656 60770
+El. paštas: info@tmt.lt
+Veiklos pradžia: 2004
+Tinklalapis: https://www.tmt.lt
+
+/* SITE */
+Kalba: Lietuvių (lt)
+Šalis: Lietuva
+Standartai: HTML5, CSS3, ES2020
+Stack: React 18, Vite, React Router 6
+Šriftai: Inter

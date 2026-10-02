@@ -1,0 +1,53 @@
+{
+  "name": "Autoservisas TMT – Vokiškų Automobilių Remontas",
+  "short_name": "TMT",
+  "description": "UAB TMT – vokiškų automobilių remontas Kauno rajone. DSG, Multitronic, Mercedes CVT pavarų dėžių valdymo blokų remontas.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#061a30",
+  "theme_color": "#0a2540",
+  "lang": "lt",
+  "dir": "ltr",
+  "categories": ["business", "automotive", "utilities"],
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Registracija į servisą",
+      "short_name": "Registracija",
+      "description": "Užsiregistruoti į autoservisą",
+      "url": "/registracija",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Kontaktai",
+      "short_name": "Kontaktai",
+      "url": "/kontaktai"
+    },
+    {
+      "name": "Skambinti",
+      "short_name": "Skambinti",
+      "url": "tel:+37037563222"
+    }
+  ]
+}
