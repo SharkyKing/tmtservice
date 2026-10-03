@@ -124,7 +124,7 @@ export default function Contact() {
                 </div>
               </AnimateOnScroll>
 
-              <AnimateOnScroll variant="fade-right" delay={200} className="contact-block">
+              <AnimateOnScroll variant="fade-right" delay={120} className="contact-block">
                 <h3>
                   <Icon name="fileText" size={14} />
                   Rekvizitai

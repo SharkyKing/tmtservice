@@ -132,7 +132,6 @@ export default function Welding() {
                 <AnimateOnScroll
                   key={label}
                   variant="fade-up"
-                  delay={i * 100}
                   style={{
                     flex: 1,
                     minWidth: '180px',
@@ -176,7 +175,6 @@ export default function Welding() {
                 <AnimateOnScroll
                   key={id}
                   variant="fade-up"
-                  delay={Math.min(i * 80, 320)}
                   className="video-wrapper"
                 >
                   <iframe

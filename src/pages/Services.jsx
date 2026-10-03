@@ -112,7 +112,6 @@ export default function Services() {
               <AnimateOnScroll
                 key={text}
                 variant="fade-up"
-                delay={Math.min(i * 30, 400)}
                 className="service-item"
                 role="listitem"
               >
@@ -155,11 +154,11 @@ export default function Services() {
                   </div>
                   <Icon name="arrowRight" size={16} />
                 </Link>
-                <Link to="/registracija" className="related-card">
-                  <Icon name="check" size={20} />
+                <Link to="/kontaktai" className="related-card">
+                  <Icon name="phone" size={20} />
                   <div>
-                    <strong>Registracija</strong>
-                    <span>Užsiregistruokite internetu</span>
+                    <strong>Kontaktai</strong>
+                    <span>Telefonai, adresas ir darbo laikas</span>
                   </div>
                   <Icon name="arrowRight" size={16} />
                 </Link>

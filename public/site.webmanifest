@@ -6,8 +6,8 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#061a30",
-  "theme_color": "#0a2540",
+  "background_color": "#0f1113",
+  "theme_color": "#191b1e",
   "lang": "lt",
   "dir": "ltr",
   "categories": ["business", "automotive", "utilities"],
@@ -32,13 +32,6 @@
     }
   ],
   "shortcuts": [
-    {
-      "name": "Registracija į servisą",
-      "short_name": "Registracija",
-      "description": "Užsiregistruoti į autoservisą",
-      "url": "/registracija",
-      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
-    },
     {
       "name": "Kontaktai",
       "short_name": "Kontaktai",

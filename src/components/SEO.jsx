@@ -135,7 +135,7 @@ export default function SEO({
       <meta name="ICBM" content="54.88856, 23.81739" />
 
       {/* Tema, mobile */}
-      <meta name="theme-color" content="#0a2540" />
+      <meta name="theme-color" content="#191b1e" />
       <meta name="format-detection" content="telephone=yes,address=yes,email=yes" />
 
       {/* Structured Data */}

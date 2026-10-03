@@ -92,14 +92,14 @@ export default function Home() {
                   automatinių pavarų dėžių valdymo blokų remonto srityje Lietuvoje.
                 </p>
                 <div className="hero-cta">
-                  <Link to="/registracija" className="btn btn-primary">
-                    <Icon name="check" size={16} />
-                    Registruotis internetu
-                  </Link>
-                  <a href="tel:+37037563222" className="btn btn-outline">
+                  <a href="tel:+37037563222" className="btn btn-primary">
                     <Icon name="phone" size={16} />
                     +370 37 563 222
                   </a>
+                  <Link to="/valdymo-bloku-remontas" className="btn btn-outline">
+                    Valdymo blokų remontas
+                    <Icon name="arrowRight" size={16} />
+                  </Link>
                 </div>
                 <div className="hero-stats-inline">
                   {STATS.map(s => (
@@ -114,7 +114,7 @@ export default function Home() {
               </AnimateOnScroll>
             </div>
 
-            <AnimateOnScroll variant="fade-left" delay={200}>
+            <AnimateOnScroll variant="fade-left" delay={120}>
               <div className="hero-photos">
                 {HERO_PHOTOS.map((p, i) => (
                   <figure key={p.file} className={`hero-photo hero-photo--${i + 1}`}>
@@ -140,7 +140,7 @@ export default function Home() {
             <h2 className="brands-section-title">Specializuojamės šių markių automobiliais</h2>
             <div className="brands-list">
               {['BMW', 'Audi', 'Volkswagen', 'Mercedes-Benz', 'Škoda', 'SEAT'].map((b, i) => (
-                <AnimateOnScroll key={b} variant="zoom-in" delay={i * 50} className="brand-tag" as="span">
+                <AnimateOnScroll key={b} variant="zoom-in" className="brand-tag" as="span">
                   {b}
                 </AnimateOnScroll>
               ))}
@@ -193,7 +193,6 @@ export default function Home() {
                 <AnimateOnScroll
                   key={h.title}
                   variant="fade-left"
-                  delay={i * 100}
                   as={Link}
                   to={h.link}
                   className="highlight-item"
@@ -246,7 +245,7 @@ export default function Home() {
             </figure>
           </AnimateOnScroll>
 
-          <AnimateOnScroll variant="fade-up" delay={150}>
+          <AnimateOnScroll variant="fade-up" delay={120}>
             <div style={{ display: 'flex', gap: '.75rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
               <Link to="/valdymo-bloku-remontas/galerija" className="btn btn-ghost">
                 Visa galerija
@@ -278,7 +277,7 @@ export default function Home() {
             <FAQ items={HOME_FAQS} />
           </AnimateOnScroll>
 
-          <AnimateOnScroll variant="fade-up" delay={200}>
+          <AnimateOnScroll variant="fade-up" delay={120}>
             <div className="guarantee-banner">
               <div className="guarantee-icon-wrap">
                 <Icon name="phone" size={28} />

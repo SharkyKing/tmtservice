@@ -140,10 +140,7 @@ export default function ControlUnitsGallery() {
               <div>
                 <div className="guarantee-title">Visiems darbams – 12 mėnesių garantija</div>
                 <div className="guarantee-desc">
-                  Skambinkite <strong>+370 37 563 222</strong> arba{' '}
-                  <Link to="/registracija" style={{ color: '#fff', textDecoration: 'underline' }}>
-                    registruokitės internetu
-                  </Link>
+                  Skambinkite <strong>+370 37 563 222</strong> arba <strong>+370 656 60770</strong>
                 </div>
               </div>
             </div>

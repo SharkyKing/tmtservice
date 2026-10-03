@@ -47,7 +47,6 @@ export default function Footer() {
               <Link to="/metalo-suvirinimas">Metalo suvirinimas</Link>
               <Link to="/kontaktai">Kontaktai</Link>
               <Link to="/kontaktai/kaip-mus-rasti">Kaip mus rasti</Link>
-              <Link to="/registracija">Registracija į servisą</Link>
             </nav>
           </div>
 

@@ -67,7 +67,7 @@ export default function HowToFind() {
                 </p>
               </AnimateOnScroll>
 
-              <AnimateOnScroll variant="fade-right" delay={200} className="contact-block" style={{ marginBottom: '1rem' }}>
+              <AnimateOnScroll variant="fade-right" delay={120} className="contact-block" style={{ marginBottom: '1rem' }}>
                 <h3>
                   <Icon name="mapPin" size={14} />
                   GPS koordinatės
@@ -105,7 +105,7 @@ export default function HowToFind() {
                 </div>
               </AnimateOnScroll>
 
-              <AnimateOnScroll variant="fade-right" delay={300} className="contact-block">
+              <AnimateOnScroll variant="fade-right" delay={120} className="contact-block">
                 <h3>
                   <Icon name="phone" size={14} />
                   Adresas ir telefonai

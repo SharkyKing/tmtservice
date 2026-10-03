@@ -9,7 +9,6 @@ import ControlUnitsPrices from './pages/ControlUnitsPrices'
 import Welding from './pages/Welding'
 import Contact from './pages/Contact'
 import HowToFind from './pages/HowToFind'
-import Booking from './pages/Booking'
 import NotFound from './pages/NotFound'
 
 function ScrollToTop() {
@@ -35,7 +34,6 @@ export default function App() {
           <Route path="metalo-suvirinimas" element={<Welding />} />
           <Route path="kontaktai" element={<Contact />} />
           <Route path="kontaktai/kaip-mus-rasti" element={<HowToFind />} />
-          <Route path="registracija" element={<Booking />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

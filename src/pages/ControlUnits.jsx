@@ -343,7 +343,6 @@ export default function ControlUnits() {
               <AnimateOnScroll
                 key={unit.id}
                 variant="fade-up"
-                delay={Math.min(idx * 80, 320)}
                 as="article"
                 className="unit-card"
                 aria-label={unit.title}
@@ -417,11 +416,11 @@ export default function ControlUnits() {
                   </div>
                   <Icon name="arrowRight" size={16} />
                 </Link>
-                <Link to="/registracija" className="related-card">
-                  <Icon name="check" size={20} />
+                <Link to="/kontaktai" className="related-card">
+                  <Icon name="phone" size={20} />
                   <div>
-                    <strong>Registracija</strong>
-                    <span>Užsiregistruokite į servisą internetu</span>
+                    <strong>Kontaktai</strong>
+                    <span>Telefonai, adresas ir darbo laikas</span>
                   </div>
                   <Icon name="arrowRight" size={16} />
                 </Link>

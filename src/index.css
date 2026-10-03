@@ -5,10 +5,12 @@
 
 /* ─── Design Tokens ─── TMT mėlyna paletė ───────────────────── */
 :root {
-  /* Pagrindiniai (tamsūs mėlyni – header, footer) */
-  --primary:         #0a2540;   /* Gilus tamsus mėlynas */
-  --primary-light:   #18507c;   /* Bevel'io rampos apačia iš logotipo */
-  --primary-deep:    #061a30;   /* Beveik juodas mėlynas */
+  /* Tamsios sekcijos – header, footer, hero.
+     NEUTRALI anglis, ne mėlyna: mėlyna lieka tik akcentui ir ženklui.
+     Anksčiau čia buvo #0a2540 – dėl jo visas puslapis skendo mėlynėje. */
+  --primary:         #191b1e;
+  --primary-light:   #242730;   /* nav juosta */
+  --primary-deep:    #0f1113;
 
   /* Akcentas – TIKRA logotipo mėlyna, paimta iš logo1.png pikselių (2026-10-03).
      Nekeisti „iš akies": šios reikšmės yra prekės ženklas, ne skonio reikalas. */
@@ -27,14 +29,16 @@
   --warning:         #f59e0b;
   --danger:          #dc2626;
 
-  --bg:              #f1f5f9;
-  --bg-alt:          #e2e8f0;
+  /* Paviršiai ir tekstas – NEUTRALŪS. Vienas rašalo tonas, keturi šviesumai;
+     linijos yra to paties rašalo permatomumas, ne atskiros pilkos. */
+  --bg:              #f5f5f4;
+  --bg-alt:          #e9e9e7;
   --bg-card:         #ffffff;
-  --text:            #0a2540;
-  --text-muted:      #5a7290;
-  --text-light:      #94a3b8;
-  --border:          #d6e4ef;
-  --border-strong:   #b5c9d8;
+  --text:            #1b1c1e;
+  --text-muted:      #63656a;
+  --text-light:      #9a9ca1;
+  --border:          rgba(27, 28, 30, .12);
+  --border-strong:   rgba(27, 28, 30, .22);
   --radius:          10px;
   --radius-lg:       16px;
   --radius-xl:       24px;
@@ -220,23 +224,38 @@ button { font-family: inherit; }
   50% { transform: translateY(-8px); }
 }
 
-/* ═══════════════ SCROLL ANIMATIONS ═══════════════════════════ */
+/* ═══════════════ SCROLL ANIMATIONS ═══════════════════════════
+   Taisyklė: ramybės būsena yra MATOMA. `.reveal` klasę prideda tik JS ir
+   tik tada, kai animacija iš tiesų galima – be jos elementas piešiamas
+   normaliai. Prerenderintame HTML ir be JS turinys matomas visada.
 
-.animate {
+   Judesys mažas ir vienodas visiems variantams, kad sekcija atrodytų kaip
+   vienas judesys, o ne kaip atskirai šokinėjantys elementai.
+   ───────────────────────────────────────────────────────────── */
+
+.reveal {
   opacity: 0;
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity, transform;
+  transition: opacity .45s cubic-bezier(.22, 1, .36, 1),
+              transform .45s cubic-bezier(.22, 1, .36, 1);
 }
-.animate.is-visible { opacity: 1; transform: none !important; }
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
 
-.animate.fade-up     { transform: translateY(40px); }
-.animate.fade-down   { transform: translateY(-40px); }
-.animate.fade-left   { transform: translateX(40px); }
-.animate.fade-right  { transform: translateX(-40px); }
-.animate.fade-in     { transform: none; }
-.animate.scale-up    { transform: scale(0.92); }
-.animate.zoom-in     { transform: scale(0.85); }
+.reveal.fade-up    { transform: translate3d(0, 14px, 0); }
+.reveal.fade-down  { transform: translate3d(0, -14px, 0); }
+.reveal.fade-left  { transform: translate3d(14px, 0, 0); }
+.reveal.fade-right { transform: translate3d(-14px, 0, 0); }
+.reveal.fade-in    { transform: none; }
+.reveal.scale-up,
+.reveal.zoom-in    { transform: scale(.98); }
+
+/* Mažiau judesio: transformą nuimam visiškai – kitaip elementai liktų
+   įstrigę pusiaukelėje, kai trukmė suvedama į nulį. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
 
 /* ═══════════════ SCROLL PROGRESS ═════════════════════════════ */
 
@@ -973,10 +992,10 @@ button { font-family: inherit; }
 /* ═══════════════ HOME HERO ═══════════════════════════════════ */
 
 .home-hero {
+  /* Vienas mėlynas akcentas, be konkuruojančios indigo. */
   background:
-    radial-gradient(circle at 80% 20%, rgba(91,163,208,0.28) 0%, transparent 50%),
-    radial-gradient(circle at 20% 80%, rgba(99,102,241,.10) 0%, transparent 50%),
-    linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+    radial-gradient(circle at 78% 18%, rgba(32, 108, 164, .18) 0%, transparent 55%),
+    linear-gradient(140deg, var(--primary) 0%, var(--primary-deep) 100%);
   color: #fff;
   padding: 4rem 0 4.5rem;
   position: relative;

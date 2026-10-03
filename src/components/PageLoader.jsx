@@ -6,9 +6,16 @@ export default function PageLoader() {
   const [show, setShow] = useState(true)
   const [fadeOut, setFadeOut] = useState(false)
 
+  /* Trumpai. Puslapis statinis ir paruoštas beveik iškart – ilgas ekranas
+     būtų tik teatras, o vartotojui tai jaučiasi kaip strigimas.
+     Mažiau judesio prašantiems nerodome išvis. */
   useEffect(() => {
-    const t1 = setTimeout(() => setFadeOut(true), 500)
-    const t2 = setTimeout(() => setShow(false), 900)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setShow(false)
+      return
+    }
+    const t1 = setTimeout(() => setFadeOut(true), 180)
+    const t2 = setTimeout(() => setShow(false), 440)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 

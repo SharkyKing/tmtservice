@@ -2,15 +2,19 @@ import { useEffect, useRef, useState } from 'react'
 
 /* Skaitliuko animacija – skaičius padidėja nuo 0 iki tikslo,
    kai elementas tampa matomas viewport'e. */
-export default function Counter({ to, duration = 1600, suffix = '', prefix = '' }) {
+export default function Counter({ to, duration = 850, suffix = '', prefix = '' }) {
   const ref = useRef(null)
-  const [value, setValue] = useState(0)
-  const [started, setStarted] = useState(false)
+  /* Be JS arba prašant mažiau judesio – iškart galutinė reikšmė, o ne nulis. */
+  const skip = typeof window === 'undefined' ||
+    typeof IntersectionObserver === 'undefined' ||
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const [value, setValue] = useState(skip ? to : 0)
+  const [started, setStarted] = useState(skip)
 
   useEffect(() => {
     const el = ref.current
     if (!el || started) return
-    if (typeof IntersectionObserver === 'undefined') {
+    if (skip) {
       setStarted(true)
       setValue(to)
       return
@@ -26,7 +30,7 @@ export default function Counter({ to, duration = 1600, suffix = '', prefix = '' 
     )
     obs.observe(el)
     return () => obs.disconnect()
-  }, [started, to])
+  }, [started, to, skip])
 
   useEffect(() => {
     if (!started) return

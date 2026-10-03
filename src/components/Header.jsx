@@ -9,7 +9,6 @@ const navLinks = [
   { to: '/valdymo-bloku-remontas', label: 'Valdymo blokų remontas' },
   { to: '/metalo-suvirinimas', label: 'Metalo suvirinimas' },
   { to: '/kontaktai', label: 'Kontaktai' },
-  { to: '/registracija', label: 'Registracija', cta: true },
 ]
 
 export default function Header() {
