@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import Icon from '../components/Icons'
 import AnimateOnScroll from '../components/AnimateOnScroll'
+import PhotoGrid from '../components/PhotoGrid'
 
 const videos = [
   { id: 'cfqgTN9Rcsw', title: 'Robotinis metalo suvirinimas 1' },
@@ -10,6 +11,24 @@ const videos = [
   { id: 'wAuTKqbc0wM', title: 'Robotinis metalo suvirinimas 4' },
   { id: 'Z5O8P8z3NRM', title: 'Robotinis metalo suvirinimas 5' },
   { id: 'u1tZH8bBIhM', title: 'Robotinis metalo suvirinimas 6' },
+]
+
+const clutchPhotos = [
+  { src: 'clutch_weld1.jpg', thumb: 'clutch_weld1_s.jpg', caption: 'Nusisukusi mova',  alt: 'Nusisukusi automatinės pavarų dėžės sankabos mova prieš suvirinimą' },
+  { src: 'clutch_weld2.jpg', thumb: 'clutch_weld2_s.jpg', caption: 'Suvirinta',        alt: 'Suvirinta sankabos mova – kombinuota lazerinė-MIG technologija' },
+  { src: 'clutch_weld3.jpg', thumb: 'clutch_weld3_s.jpg', caption: 'Rezultatas',       alt: 'Suvirinta ir apdirbta sankabos mova' },
+]
+
+const hydraulicPhotos = [
+  { src: '0am_crack.jpg', thumb: '0am_crack_s.jpg', caption: 'Įtrūkimas',   alt: 'Trūkęs DSG 0AM mechatroniko hidraulinio valdymo bloko aliuminis korpusas' },
+  { src: '0am_weld1.jpg', thumb: '0am_weld1_s.jpg', caption: 'Suvirinta',   alt: 'Lazeriu suvirintas ir sustiprintas DSG 0AM hidraulinės dalies blokas' },
+  { src: '0am_weld2.jpg', thumb: '0am_weld2_s.jpg', caption: 'Sustiprinta', alt: 'Papildomai sustiprintas DSG 0AM hidraulinės dalies blokas' },
+]
+
+const precisionPhotos = [
+  { src: '3cubes.jpg', thumb: '3cubes_s.jpg', caption: 'Precizinis suvirinimas', alt: 'Preciziškai suvirinti ir lazeriu graviruoti metalo kubeliai' },
+  { src: 'cube1.jpg',  thumb: 'cube1_s.jpg',  caption: 'Lazerinis graviravimas', alt: 'Lazeriu graviruotas metalo gaminys iš arti' },
+  { src: 'cube2.jpg',  thumb: 'cube2_s.jpg',  caption: 'Detalė',                 alt: 'Precizinio metalo suvirinimo ir graviravimo pavyzdys' },
 ]
 
 const WELDING_LD = {
@@ -74,23 +93,7 @@ export default function Welding() {
               bei panašias movas. Suvirinimui naudojame kombinuotą lazerinę–MIG suvirinimo technologiją,
               kuri užtikrina maksimalų sukibimą ir ilgaamžiškumą.
             </p>
-            <div className="gallery-grid">
-              {['Nusisukusi sankabos mova', 'Suvirinta sankabos mova 1', 'Suvirinta sankabos mova 2'].map((label, i) => (
-                <AnimateOnScroll
-                  key={label}
-                  variant="zoom-in"
-                  delay={i * 80}
-                  className="gallery-placeholder"
-                  role="img"
-                  aria-label={label}
-                >
-                  <div className="gallery-icon">
-                    <Icon name="cog" size={20} />
-                  </div>
-                  <em>{label}</em>
-                </AnimateOnScroll>
-              ))}
-            </div>
+            <PhotoGrid items={clutchPhotos} />
           </AnimateOnScroll>
 
           <AnimateOnScroll variant="fade-up" className="welding-section" aria-labelledby="hydraulic-title">
@@ -105,23 +108,7 @@ export default function Welding() {
               valdymo bloko (mechatroniko) įtrūkusias aliumines detales. Tai labai dažnas šio tipo pavarų
               dėžės mechatroniko gedimas. Papildomai galime sustiprinti, kad ateityje neįtrūktų.
             </p>
-            <div className="gallery-grid">
-              {['Trūkęs hidraulinės dalies blokas', 'Suvirintas ir sustiprintas blokas 1', 'Suvirintas ir sustiprintas blokas 2'].map((label, i) => (
-                <AnimateOnScroll
-                  key={label}
-                  variant="zoom-in"
-                  delay={i * 80}
-                  className="gallery-placeholder"
-                  role="img"
-                  aria-label={label}
-                >
-                  <div className="gallery-icon">
-                    <Icon name="laser" size={20} />
-                  </div>
-                  <em>{label}</em>
-                </AnimateOnScroll>
-              ))}
-            </div>
+            <PhotoGrid items={hydraulicPhotos} />
           </AnimateOnScroll>
 
           <AnimateOnScroll variant="fade-up" className="welding-section" aria-labelledby="precision-title">
@@ -173,6 +160,7 @@ export default function Welding() {
                 </AnimateOnScroll>
               ))}
             </div>
+            <PhotoGrid items={precisionPhotos} />
           </AnimateOnScroll>
 
           <AnimateOnScroll variant="fade-up" aria-labelledby="robot-title">

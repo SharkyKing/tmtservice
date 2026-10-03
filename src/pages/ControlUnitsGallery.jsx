@@ -2,35 +2,39 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import Icon from '../components/Icons'
 import AnimateOnScroll from '../components/AnimateOnScroll'
+import PhotoGrid from '../components/PhotoGrid'
 
-const galleryItems = [
-  { icon: 'gear',  alt: 'Multitronic V30 – tepalas patekęs į elektronikos skyrių',     label: 'Multitronic 01J V30',     desc: 'Tepalas elektronikos skyriuje' },
-  { icon: 'car',   alt: 'MB 722.7 – tepalas patekęs į elektronikos skyrių',           label: 'MB 722.7',                desc: 'Tepalas elektronikos skyriuje' },
-  { icon: 'chip',  alt: 'DSG 02E – tepalas elektronikos skyriuje',                     label: 'DSG DQ250',               desc: 'Tepalas elektronikos skyriuje' },
-  { icon: 'car',   alt: 'MB 722.8 – tepalas elektronikos skyriuje',                   label: 'MB 722.8',                desc: 'Tepalas elektronikos skyriuje' },
-  { icon: 'zap',   alt: 'Nudegęs MOSFET tranzistoriaus išvadas',                        label: 'MOSFET gedimas',          desc: 'Nudegęs tranzistoriaus išvadas' },
-  { icon: 'gear',  alt: 'Multitronic 01J V30 – išvalytas blokas',                       label: 'Multitronic išvalytas',  desc: 'Po remonto' },
-  { icon: 'car',   alt: 'Atidarytas MB 722.8 valdymo blokas',                           label: 'MB 722.8 atidarytas',     desc: 'Pradėtas remontas' },
-  { icon: 'chip',  alt: 'DSG 02E – nutrūkę laidai nuo pagrindinės plokštės',          label: 'DSG 02E gedimas',         desc: 'Nutrūkę laidai' },
-  { icon: 'check', alt: 'Suremontuotas DSG DQ250 valdymo blokas',                       label: 'DSG DQ250 suremontuotas', desc: 'Po remonto' },
+/* Tikros TMT dirbtuvių nuotraukos (public/images/galery/).
+   Pilni kadrai 800x600, miniatiūros _s.jpg 150x113. */
+
+const faultPhotos = [
+  { src: '01j_v30_open.jpg', thumb: '01j_v30_open_s.jpg', caption: 'Multitronic 01J V30', alt: 'Multitronic 01J V30 valdymo blokas – per ilgą eksploataciją į elektronikos skyrių patekęs pavarų dėžės tepalas' },
+  { src: 'a_open.jpg',       thumb: 'a_open_s.jpg',       caption: 'MB 722.7',            alt: 'Mercedes-Benz 722.7 valdymo blokas su tepalu elektronikos skyriuje' },
+  { src: 'dq200_oil.jpg',    thumb: 'dq200_oil_s.jpg',    caption: 'DSG mechatronikas',   alt: 'DSG mechatroniko elektronikos skyrius, užlietas pavarų dėžės tepalu' },
+  { src: '7228_oil.jpg',     thumb: '7228_oil_s.jpg',     caption: 'MB 722.8 CVT',        alt: 'Mercedes-Benz 722.8 CVT valdymo blokas su tepalo pažeidimais' },
+  { src: 'mosfet_x.jpg',     thumb: 'mosfet_x_s.jpg',     caption: 'Nudegęs MOSFET',      alt: 'Nudegęs MOSFET tranzistoriaus išvadas valdymo bloko plokštėje' },
+  { src: 'v30_clear.jpg',    thumb: 'v30_clear_s.jpg',    caption: 'V30 po valymo',       alt: 'Multitronic 01J V30 valdymo blokas po išvalymo' },
+  { src: '7228_open.jpg',    thumb: '7228_open_sml.jpg',  caption: '722.8 atidarytas',    alt: 'Atidarytas Mercedes-Benz 722.8 pavarų dėžės valdymo blokas' },
+  { src: '02E_faulty.jpg',   thumb: '02E_faulty_s.jpg',   caption: 'DSG 02E – nutrūkę laidai', alt: 'DSG 02E valdymo blokas su nuo pagrindinės plokštės nutrūkusiais laidais' },
+  { src: 'dq250_finish.jpg', thumb: 'dq250_finish_s.jpg', caption: 'DQ250 suremontuotas', alt: 'Suremontuotas DSG DQ250 valdymo blokas' },
 ]
 
 const repairSteps = [
-  { icon: 'tool',    label: '1. CNC atidarymas',            desc: 'Blokas atidaromas CNC frezavimo staklėmis' },
-  { icon: 'search',  label: '2. Atidarytas blokas',         desc: 'Nuvalomas ir apžiūrimas' },
-  { icon: 'flame',   label: '3. Silikono šalinimas',        desc: 'Specialiu tirpikliu' },
-  { icon: 'spark',   label: '4. Laidų litavimas',           desc: 'Ultragarso litavimas be rūgščių' },
-  { icon: 'shield',  label: '5. Apsauginis silikonas',      desc: 'Naujas sluoksnis užliejamas' },
-  { icon: 'check',   label: '6. Užklijavimas ir tikrinimas', desc: 'Specialia derva, galutinis patikrinimas' },
+  { src: 'vl300_cnc.jpg',       thumb: 'vl300_cnc_s.jpg',       caption: '01 · CNC atidarymas',   alt: 'Valdymo bloko atidarymas CNC frezavimo staklėmis' },
+  { src: '01j_open.jpg',        thumb: '01j_open_s.jpg',        caption: '02 · Atidarytas',       alt: 'Atidarytas Multitronic 01J VL300 valdymo blokas' },
+  { src: '01j_cleared.jpg',     thumb: '01j_cleared_s.jpg',     caption: '03 · Silikonas nuimtas', alt: 'Nutirpdytas apsauginis silikono sluoksnis, blokas paruoštas remontui' },
+  { src: '01j_fixed.jpg',       thumb: '01j_fixed_s.jpg',       caption: '04 · 18 laidų perlituota', alt: 'Ultragarsu perlituoti nutrūkę laidai – sutvarkyti ne tik nutrūkę, bet ir visi įtartini, iš viso 18' },
+  { src: '01j_fixed_silic.jpg', thumb: '01j_fixed_silic_s.jpg', caption: '05 · Naujas silikonas',  alt: 'Užliejamas naujas apsauginio silikono sluoksnis' },
+  { src: '01j_finish.jpg',      thumb: '01j_finish_s.jpg',      caption: '06 · Užklijuota',        alt: 'Blokas užklijuotas specialia derva ir patikrintas' },
 ]
 
-const failExamples = [
-  'Bandyta remontuoti pačių – neteisinga technologija',
-  'Užklijuota paprastu silikonu – tirpsta ir kimša hidrauliką',
-  'Nudeginti auksiniai laidai bandant litavimo įrankiu',
-  'Nuskeltas diodo kristalas',
-  'Netinkamas dangtelis – neįmanoma hermetiškai uždaryti',
-  'Epoksidinė derva – neįmanoma pašalinti nepažeidžiant plokštės',
+const failPhotos = [
+  { src: 'taisaupac_1.jpg', thumb: 'taisaupac_1_s.jpg', caption: 'Netinkamas remontas', alt: 'Netinkamai remontuotas valdymo blokas – pavyzdys 1' },
+  { src: 'taisaupac_2.jpg', thumb: 'taisaupac_2_s.jpg', caption: 'Netinkamas remontas', alt: 'Netinkamai remontuotas valdymo blokas – pavyzdys 2' },
+  { src: 'taisaupac_3.jpg', thumb: 'taisaupac_3_s.jpg', caption: 'Netinkamas remontas', alt: 'Netinkamai remontuotas valdymo blokas – pavyzdys 3' },
+  { src: 'taisaupac_4.jpg', thumb: 'taisaupac_4_s.jpg', caption: 'Netinkamas remontas', alt: 'Netinkamai remontuotas valdymo blokas – pavyzdys 4' },
+  { src: 'taisaupac_6.jpg', thumb: 'taisaupac_6_s.jpg', caption: 'Netinkamas remontas', alt: 'Netinkamai remontuotas valdymo blokas – pavyzdys 5' },
+  { src: 'taisaupac_7.jpg', thumb: 'taisaupac_7_s.jpg', caption: 'Nudegintas išvadas',  alt: 'Bandant prilituoti nutrūkusį laidą nudegintas tranzistoriaus išvadas ir nuskeltas diodo kristalas' },
 ]
 
 export default function ControlUnitsGallery() {
@@ -38,7 +42,7 @@ export default function ControlUnitsGallery() {
     <>
       <SEO
         title="Valdymo blokų remontas – galerija"
-        description="Automatinių pavarų dėžių valdymo blokų remonto proceso nuotraukos. DSG, Multitronic, Mercedes CVT remontas Kaune. CNC atidarymas, ultragarso litavimas."
+        description="Automatinių pavarų dėžių valdymo blokų remonto nuotraukos: DSG, Multitronic, Mercedes CVT. CNC atidarymas, ultragarso litavimas, 01J VL300 remonto eiga žingsnis po žingsnio."
         keywords="DSG remontas galerija, Multitronic remontas nuotraukos, valdymo bloko remontas procesas, mechatroniko remontas"
         canonical="valdymo-bloku-remontas/galerija"
         breadcrumbs={[
@@ -59,7 +63,7 @@ export default function ControlUnitsGallery() {
           </nav>
           <AnimateOnScroll variant="fade-up">
             <h1>Galerija</h1>
-            <p>Remonto proceso nuotraukos ir pavyzdžiai</p>
+            <p>Tikros mūsų dirbtuvių nuotraukos – gedimai, remonto eiga ir rezultatai</p>
           </AnimateOnScroll>
         </div>
       </div>
@@ -73,94 +77,77 @@ export default function ControlUnitsGallery() {
           </div>
 
           <AnimateOnScroll variant="fade-up">
+            <span className="eyebrow">Gedimai</span>
             <h2 className="section-title">
               <Icon name="search" size={24} />
-              Gedimų pavyzdžiai
+              Su kuo tenka susidurti
             </h2>
             <p className="section-subtitle">
               Per ilgą eksploatacijos laiką į elektronikos skyrių patenka pavarų dėžės tepalas,
-              dėl vibracijos nutrūksta laidai. Tai dažniausi atvejai, kuriuos sutvarkome.
+              dėl vibracijos nutrūksta aliumininiai jungiamieji laidai. Spustelėkite nuotrauką,
+              kad pamatytumėte ją pilname dydyje.
             </p>
           </AnimateOnScroll>
 
-          <div className="gallery-grid">
-            {galleryItems.map((item, i) => (
-              <AnimateOnScroll
-                key={item.label}
-                variant="zoom-in"
-                delay={Math.min(i * 60, 400)}
-                className="gallery-placeholder"
-                role="img"
-                aria-label={item.alt}
-              >
-                <div className="gallery-icon">
-                  <Icon name={item.icon} size={20} />
-                </div>
-                <strong>{item.label}</strong>
-                <em>{item.desc}</em>
-              </AnimateOnScroll>
-            ))}
-          </div>
+          <AnimateOnScroll variant="fade-up" delay={80}>
+            <PhotoGrid items={faultPhotos} />
+          </AnimateOnScroll>
 
-          <AnimateOnScroll variant="fade-up" style={{ marginTop: '3rem' }}>
+          <AnimateOnScroll variant="fade-up" style={{ marginTop: '3.5rem' }}>
+            <span className="eyebrow">Procesas</span>
             <h2 className="section-title">
               <Icon name="tool" size={24} />
-              01J Multitronic VL300 — remonto eiga
+              <span className="code">01J</span> Multitronic VL300 — remonto eiga
             </h2>
             <p className="section-subtitle">
-              Blokas atidaromas CNC frezavimu. Nutirpinamas apsauginis silikonas. Ultragarsu
-              prilituojami nutrūkę laidai – be rūgščių ar agresyvių fliusų. Užliejamas naujas
-              apsauginis silikono sluoksnis, dangtelis klijuojamas specialia derva.
+              Blokas atidaromas CNC frezavimu. Specialiu tirpikliu nutirpdomas apsauginis
+              silikonas. Nutrūkę laidai prilituojami <strong>ultragarsu</strong> – be agresyvių
+              rūgščių ar fliusų. Sutvarkomi ne tik tie, kurie jau nutrūkę, bet ir visi keliantys
+              įtarimų: šiuo atveju 18 laidų. Užliejamas naujas silikono sluoksnis, dangtelis
+              užklijuojamas specialia derva, blokas patikrinamas dar kartą.
             </p>
           </AnimateOnScroll>
 
-          <div className="gallery-grid">
-            {repairSteps.map((step, i) => (
-              <AnimateOnScroll
-                key={step.label}
-                variant="fade-up"
-                delay={i * 80}
-                className="gallery-placeholder"
-                role="img"
-                aria-label={step.label}
-              >
-                <div className="gallery-icon">
-                  <Icon name={step.icon} size={20} />
-                </div>
-                <strong style={{ color: 'var(--accent)' }}>{step.label}</strong>
-                <em>{step.desc}</em>
-              </AnimateOnScroll>
-            ))}
-          </div>
+          <AnimateOnScroll variant="fade-up" delay={80}>
+            <PhotoGrid items={repairSteps} columns="wide" />
+          </AnimateOnScroll>
 
-          <AnimateOnScroll variant="fade-up" style={{ marginTop: '3rem' }}>
+          <AnimateOnScroll variant="fade-up" style={{ marginTop: '3.5rem' }}>
+            <span className="eyebrow">Įspėjimas</span>
             <h2 className="section-title">
               <Icon name="warning" size={24} />
-              Netinkamo remonto pavyzdžiai
+              Kai remontuoja ne tie
             </h2>
             <p className="section-subtitle">
-              Dažnai tenka remontuoti valdymo blokus, kuriuos klientai bandė remontuoti patys arba patikėjo
-              „liaudies meistrams". Tokiu atveju remonto kaina didesnė, nes reikia pašalinti epoksidinės dervos
-              ar paprastų silikonų likučius. Pasitaikė atvejų, kuomet suremontuoti būna neįmanoma.
+              Dažnai tenka remontuoti blokus, kuriuos bandyta taisyti patiems arba patikėta
+              „liaudies meistrams". Tada remontas brangesnis: reikia pašalinti epoksidinės
+              dervos ar paprasto silikono likučius, o dangtelis dažnai jau netinkamas – tenka
+              frezuoti naują. Pasitaikė atvejų, kai suremontuoti nebeįmanoma: bandant įprastais
+              metodais prilituoti aliumininį laidą nudeginami vos kelių dešimčių mikronų storio
+              auksiniai laideliai.
             </p>
           </AnimateOnScroll>
 
-          <div className="services-grid">
-            {failExamples.map((ex, i) => (
-              <AnimateOnScroll
-                key={ex}
-                variant="fade-up"
-                delay={i * 60}
-                className="service-item"
-                style={{ borderColor: '#fbbf24' }}
-              >
-                <span className="service-icon" style={{ background: '#fef3c7', color: '#b45309' }}>
-                  <Icon name="warning" size={18} />
-                </span>
-                <span className="service-text">{ex}</span>
-              </AnimateOnScroll>
-            ))}
-          </div>
+          <AnimateOnScroll variant="fade-up" delay={80}>
+            <PhotoGrid items={failPhotos} />
+          </AnimateOnScroll>
+
+          <AnimateOnScroll variant="fade-up">
+            <div className="guarantee-banner">
+              <div className="guarantee-icon-wrap">
+                <Icon name="shieldCheck" size={28} />
+              </div>
+              <div>
+                <div className="guarantee-title">Visiems darbams – 12 mėnesių garantija</div>
+                <div className="guarantee-desc">
+                  Skambinkite <strong>+370 37 563 222</strong> arba{' '}
+                  <Link to="/registracija" style={{ color: '#fff', textDecoration: 'underline' }}>
+                    registruokitės internetu
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
         </div>
       </div>
     </>

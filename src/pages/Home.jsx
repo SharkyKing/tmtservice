@@ -4,13 +4,21 @@ import Icon from '../components/Icons'
 import AnimateOnScroll from '../components/AnimateOnScroll'
 import Counter from '../components/Counter'
 import FAQ, { HOME_FAQS } from '../components/FAQ'
-import Reviews, { REVIEWS, REVIEWS_LD } from '../components/Reviews'
 
+/* Tik patikrinami faktai. „100% originalūs metodai" ir panašūs išgalvoti
+   skaičiai pašalinti – jų nėra iš kur patvirtinti. */
 const STATS = [
-  { num: 20, suffix: '+', label: 'Metų patirtis', icon: 'award' },
-  { num: 6,  suffix: '',  label: 'Aptarnaujamos markės', icon: 'car' },
-  { num: 12, suffix: ' mėn.', label: 'Darbų garantija', icon: 'shieldCheck' },
-  { num: 100,suffix: '%', label: 'Originalūs metodai', icon: 'check' },
+  { num: 20, suffix: '+',     label: 'Metų patirtis',        icon: 'award' },
+  { num: 6,  suffix: '',      label: 'Aptarnaujamos markės', icon: 'car' },
+  { num: 12, suffix: ' mėn.', label: 'Darbų garantija',      icon: 'shieldCheck' },
+]
+
+/* Tikros dirbtuvių nuotraukos pradžios ekranui */
+const HERO_PHOTOS = [
+  { file: 'kuka_fronius_knuth_ll.jpg', alt: 'KUKA robotas su Fronius lazerinio suvirinimo įranga TMT dirbtuvėse' },
+  { file: '02emech.jpg',               alt: 'DSG 02E mechatronikas ant darbastalio' },
+  { file: 'tcu_test.jpg',              alt: 'DSG 0AM valdymo bloko testavimas stende' },
+  { file: 'cnc_run.jpg',               alt: 'CNC pjovimo staklės darbo metu' },
 ]
 
 const HIGHLIGHTS = [
@@ -40,12 +48,10 @@ const HIGHLIGHTS = [
   },
 ]
 
-/* Kombinuotas JSON-LD: LocalBusiness + AggregateRating */
-const HOME_LD = {
-  ...LOCAL_BUSINESS_LD,
-  aggregateRating: REVIEWS_LD.aggregateRating,
-  review: REVIEWS_LD.review,
-}
+/* SVARBU: aggregateRating / review laukai NEPRIDEDAMI tol, kol neturime tikrų
+   kliento atsiliepimų. Išgalvoti atsiliepimai su Review schema = Google manual
+   action ir vartotojų klaidinimas. Žr. vault: tmt-paleidimo-spastai. */
+const HOME_LD = LOCAL_BUSINESS_LD
 
 export default function Home() {
   return (
@@ -95,35 +101,31 @@ export default function Home() {
                     +370 37 563 222
                   </a>
                 </div>
-                <div className="hero-features">
-                  <span className="hero-feature">
-                    <Icon name="shieldCheck" size={16} />
-                    12 mėn. garantija
-                  </span>
-                  <span className="hero-feature">
-                    <Icon name="award" size={16} />
-                    Sertifikuoti specialistai
-                  </span>
-                  <span className="hero-feature">
-                    <Icon name="zap" size={16} />
-                    Greitas pristatymas
-                  </span>
+                <div className="hero-stats-inline">
+                  {STATS.map(s => (
+                    <div key={s.label} className="hero-stat">
+                      <span className="hero-stat-num tnum">
+                        <Counter to={s.num} suffix={s.suffix} />
+                      </span>
+                      <span className="hero-stat-label">{s.label}</span>
+                    </div>
+                  ))}
                 </div>
               </AnimateOnScroll>
             </div>
 
             <AnimateOnScroll variant="fade-left" delay={200}>
-              <div className="hero-stats">
-                {STATS.map((s, i) => (
-                  <div key={s.label} className="stat-card" style={{ transitionDelay: `${i * 80}ms` }}>
-                    <div className="stat-icon-bg">
-                      <Icon name={s.icon} size={70} strokeWidth={1.5} />
-                    </div>
-                    <div className="stat-num">
-                      <Counter to={s.num} suffix={s.suffix} />
-                    </div>
-                    <div className="stat-label">{s.label}</div>
-                  </div>
+              <div className="hero-photos">
+                {HERO_PHOTOS.map((p, i) => (
+                  <figure key={p.file} className={`hero-photo hero-photo--${i + 1}`}>
+                    <img
+                      src={`/images/galery/${p.file}`}
+                      alt={p.alt}
+                      loading={i === 0 ? 'eager' : 'lazy'}
+                      width="800"
+                      height="600"
+                    />
+                  </figure>
                 ))}
               </div>
             </AnimateOnScroll>
@@ -211,20 +213,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════ REVIEWS / ATSILIEPIMAI ═══════ */}
-      <section className="about-section" style={{ background: 'var(--bg-card)' }} aria-label="Klientų atsiliepimai">
+      {/* ═══════ DARBO PAVYZDYS ═══════ */}
+      <section className="about-section" style={{ background: 'var(--bg-card)' }} aria-label="Darbo pavyzdys">
         <div className="container">
           <AnimateOnScroll variant="fade-up">
+            <span className="eyebrow">Kaip tai atrodo</span>
             <h2 className="section-title">
-              <Icon name="award" size={24} />
-              Klientų atsiliepimai
+              <Icon name="chip" size={24} />
+              Plokštės lygio remontas
             </h2>
             <p className="section-subtitle">
-              Mūsų darbą įvertinę klientai – tikri atsiliepimai iš autoserviso TMT.
+              Daugumą valdymo blokų gedimų sukelia į elektronikos skyrių patekęs pavarų dėžės
+              tepalas ir dėl vibracijos nutrūkę aliumininiai jungiamieji laideliai. Mes juos
+              perlituojame ultragarsu – be agresyvių rūgščių ar fliusų – ir sutvarkome ne tik
+              nutrūkusius, bet ir visus keliančius įtarimų.
             </p>
           </AnimateOnScroll>
+
           <AnimateOnScroll variant="fade-up" delay={100}>
-            <Reviews items={REVIEWS} />
+            <figure className="showcase">
+              <img
+                src="/images/galery/01j_fixed.jpg"
+                alt="Multitronic 01J VL300 valdymo blokas po remonto – raudonai pažymėti 18 ultragarsu perlituotų jungiamųjų laidų"
+                loading="lazy"
+                width="800"
+                height="600"
+              />
+              <figcaption>
+                <span className="code">01J</span> Multitronic VL300 — raudonai pažymėti
+                <strong> 18 perlituotų laidų</strong>
+              </figcaption>
+            </figure>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll variant="fade-up" delay={150}>
+            <div style={{ display: 'flex', gap: '.75rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
+              <Link to="/valdymo-bloku-remontas/galerija" className="btn btn-ghost">
+                Visa galerija
+                <Icon name="arrowRight" size={14} />
+              </Link>
+              <Link to="/valdymo-bloku-remontas/kainos" className="btn btn-primary">
+                Remonto kainos
+                <Icon name="arrowRight" size={14} />
+              </Link>
+            </div>
           </AnimateOnScroll>
         </div>
       </section>

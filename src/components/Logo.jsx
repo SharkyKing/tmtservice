@@ -18,9 +18,11 @@ export default function Logo({ size = 48, withText = false, className = '' }) {
     >
       <defs>
         <linearGradient id={`${id}-grad`} x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%"  stopColor="#7cb8de" />
-          <stop offset="45%" stopColor="#3a7ca8" />
-          <stop offset="100%" stopColor="#1e4d75" />
+          {/* Reikšmės iš logo1.png pikselių histogramos – ne iš akies.
+              #206ca4 yra dominuojantis užpildas (3190 px, sodrumas 0,80). */}
+          <stop offset="0%"  stopColor="#2d8ad0" />
+          <stop offset="45%" stopColor="#206ca4" />
+          <stop offset="100%" stopColor="#18507c" />
         </linearGradient>
         <linearGradient id={`${id}-shine`} x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%"   stopColor="rgba(255,255,255,0.45)" />

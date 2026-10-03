@@ -1,49 +1,26 @@
 import Icon from './Icons'
 
-/* Klientų atsiliepimai su Review schema – Google rodo žvaigždutes
-   paieškoje (rich snippets). SVARBU: rodyti tik TIKRUS atsiliepimus
-   (Google FTC reikalavimas). Šie yra placeholder'iai – pakeisti į tikrus. */
+/* ════════════════════════════════════════════════════════════════
+   KLIENTŲ ATSILIEPIMAI — ŠIUO METU NENAUDOJAMA
 
-export const REVIEWS = [
-  {
-    author: 'Andrius J.',
-    rating: 5,
-    date: '2025-03-15',
-    car: 'VW Passat B7 2.0 TDI',
-    text: 'Sutvarkė DSG DQ250 dėžės mechatroniką – pavarų perjungimas tobulas, jokių trūkčiojimų. Darbas atliktas per 3 dienas, kaip ir žadėjo. Rekomenduoju.',
-  },
-  {
-    author: 'Renata B.',
-    rating: 5,
-    date: '2025-02-08',
-    car: 'Audi A6 3.0 TDI Multitronic',
-    text: 'Multitronic dėžė pradėjo trūkčioti. Diagnostika tiksli, kaina priimtina. Po remonto važiuoju jau 4 mėnesius – jokių problemų. Profesionalai.',
-  },
-  {
-    author: 'Marius P.',
-    rating: 5,
-    date: '2025-01-22',
-    car: 'Mercedes B-Class W245 CVT',
-    text: 'Niekas kitas servisas net nesutiko imtis CVT 722.8 remonto, tik čia. Sutvarkė ir suteikė garantiją. Ačiū!',
-  },
-  {
-    author: 'Tomas K.',
-    rating: 5,
-    date: '2024-12-14',
-    car: 'Škoda Octavia 2.0 TDI DSG',
-    text: 'Greitai diagnozavo problemą, parodė, ką ir kaip taisys. Kaina kaip žadėta, jokių staigmenų. Garantija 12 mėn. – jaučiuosi saugiai.',
-  },
-  {
-    author: 'Justas M.',
-    rating: 5,
-    date: '2024-11-30',
-    car: 'BMW 320d E91',
-    text: 'Variklio diagnostika ir purkštukų patikra. Patarė, ką realiai reikia keisti, ką galima palaukti. Sąžiningas požiūris – tai rečiausia kokybė autoservisuose.',
-  },
-]
+   Ankstesnėje versijoje čia buvo 5 IŠGALVOTI atsiliepimai, kurie maitino
+   AggregateRating ir Review struktūrinius duomenis. Jie pašalinti 2026-10-03.
 
-/* AggregateRating schema – matomas Google paieškoje su žvaigždutėmis */
-export const REVIEWS_LD = {
+   KODĖL: publikuoti išgalvotus atsiliepimus kaip tikrus yra
+   - Google structured data politikos pažeidimas → manual action, po kurio
+     nukenčia viso domeno pasitikėjimas, ne tik žvaigždutės;
+   - vartotojų klaidinimas (nesąžininga komercinė veikla LT/ES teisėje).
+
+   KAIP ĮJUNGTI: užpildyti REVIEWS tikrais kliento atsiliepimais (su jų
+   sutikimu), tada importuoti <Reviews /> į Home.jsx IR pridėti
+   aggregateRating + review laukus į HOME_LD. Be tikrų duomenų — nejungti.
+   ════════════════════════════════════════════════════════════════ */
+
+/** @type {Array<{author:string, rating:number, date:string, car?:string, text:string}>} */
+export const REVIEWS = []
+
+/* Schema generuojama tik tada, kai yra tikrų atsiliepimų. */
+export const REVIEWS_LD = REVIEWS.length === 0 ? null : {
   '@context': 'https://schema.org',
   '@type': 'AutoRepair',
   '@id': 'https://www.tmt.lt/#organization',
@@ -59,12 +36,7 @@ export const REVIEWS_LD = {
     author: { '@type': 'Person', name: r.author },
     datePublished: r.date,
     reviewBody: r.text,
-    reviewRating: {
-      '@type': 'Rating',
-      ratingValue: r.rating,
-      bestRating: 5,
-      worstRating: 1,
-    },
+    reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5, worstRating: 1 },
   })),
 }
 
@@ -72,14 +44,8 @@ function Stars({ value }) {
   return (
     <span className="review-stars" aria-label={`${value} iš 5 žvaigždučių`}>
       {Array.from({ length: 5 }).map((_, i) => (
-        <svg
-          key={i}
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill={i < value ? '#f59e0b' : '#e2e8f0'}
-          aria-hidden="true"
-        >
+        <svg key={i} width="16" height="16" viewBox="0 0 24 24"
+             fill={i < value ? '#f59e0b' : '#e2e8f0'} aria-hidden="true">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
         </svg>
       ))}
@@ -88,6 +54,8 @@ function Stars({ value }) {
 }
 
 export default function Reviews({ items = REVIEWS, max }) {
+  if (!items || items.length === 0) return null
+
   const list = max ? items.slice(0, max) : items
   const avg = (items.reduce((s, r) => s + r.rating, 0) / items.length).toFixed(1)
 
@@ -108,16 +76,9 @@ export default function Reviews({ items = REVIEWS, max }) {
 
       <div className="reviews-grid">
         {list.map((r, i) => (
-          <article
-            key={i}
-            className="review-card"
-            itemScope
-            itemType="https://schema.org/Review"
-          >
+          <article key={i} className="review-card" itemScope itemType="https://schema.org/Review">
             <header className="review-head">
-              <div className="review-avatar">
-                {r.author.charAt(0)}
-              </div>
+              <div className="review-avatar">{r.author.charAt(0)}</div>
               <div>
                 <div className="review-author" itemProp="author">{r.author}</div>
                 <div className="review-meta">

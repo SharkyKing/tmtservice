@@ -37,7 +37,7 @@ const units = [
     id: '01j',
     image: null,
     imageAlt: 'Multitronic 01J valdymo blokas',
-    icon: 'gear',
+    photo: '01j_VL300_s.jpg',
     title: 'Audi A4, A6 — 6/7 pavarų CVT Multitronic 01J',
     subtitle: 'Valdymo blokai: Hytronic V30, Hytronic VL300',
     faults: [
@@ -81,7 +81,7 @@ const units = [
     id: '0aw',
     image: null,
     imageAlt: 'Multitronic 0AW valdymo blokas',
-    icon: 'cog',
+    photo: '0aw_s.jpg',
     title: 'Audi A4, A5, A6 — 8 pavarų CVT Multitronic 0AW',
     subtitle: 'Valdymo blokas: VL381F',
     faults: [
@@ -114,7 +114,7 @@ const units = [
     id: '02e',
     image: null,
     imageAlt: 'DSG DQ250 mechatronikas',
-    icon: 'chip',
+    photo: 'dsg_dq250_s.jpg',
     title: 'VW / Audi / Škoda / SEAT — DSG 6 pavarų 02E, 0D9',
     subtitle: 'Valdymo blokas: DQ250',
     faults: [
@@ -173,7 +173,7 @@ const units = [
     id: '0am',
     image: null,
     imageAlt: 'DSG DQ200 mechatronikas',
-    icon: 'chip',
+    photo: 'dq200_s.jpg',
     title: 'VW / Audi / Škoda / SEAT — DSG 7 pavarų 0AM',
     subtitle: 'Valdymo blokas: DQ200',
     faults: [
@@ -219,7 +219,7 @@ const units = [
     id: 'mb7227',
     image: null,
     imageAlt: 'Mercedes FGS/FGS2 valdymo blokas',
-    icon: 'car',
+    photo: 'mb_fgs2_s.jpg',
     title: 'Mercedes-Benz A Klasė W168 / Vaneo — pavarų dėžė 722.7',
     subtitle: 'Valdymo blokas: VGS FGS/FGS2',
     faults: [
@@ -255,7 +255,7 @@ const units = [
     id: 'mb7228',
     image: null,
     imageAlt: 'Mercedes CVT 722.8 valdymo blokas',
-    icon: 'car',
+    photo: 'mb7228_s.jpg',
     title: 'Mercedes-Benz A Klasė W169, B Klasė W245 — CVT 722.8',
     subtitle: 'Valdymo blokas: VGS2-FCVT',
     faults: [
@@ -350,9 +350,13 @@ export default function ControlUnits() {
               >
                 <div className="unit-card-inner">
                   <div className="unit-image">
-                    <div className="unit-image-icon" title={unit.imageAlt}>
-                      <Icon name={unit.icon} size={48} strokeWidth={1.5} />
-                    </div>
+                    <img
+                      src={`/images/galery/${unit.photo}`}
+                      alt={unit.imageAlt}
+                      loading="lazy"
+                      width="150"
+                      height="113"
+                    />
                   </div>
                   <div className="unit-body">
                     <h3 className="unit-title">{unit.title}</h3>
@@ -365,7 +369,7 @@ export default function ControlUnits() {
                     </ul>
                     <div className="unit-actions">
                       <Accordion label="📋 Detalių numeriai">
-                        <p>{unit.partNumbers}</p>
+                        <p className="code-block">{unit.partNumbers}</p>
                       </Accordion>
                       <Accordion label="⚠ Klaidų / gedimų kodai (anglų k.)">
                         {unit.faultCodes}
