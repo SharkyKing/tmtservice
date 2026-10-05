@@ -129,6 +129,124 @@ export const ROBOTICS = {
   ],
 }
 
+/* ─── KAINOS ──────────────────────────────────────────────────
+   ⚠️ Iš 2026 m. tmt.lt scrape. KLIENTO NEPATVIRTINTOS.
+   Prieš publikuojant gyvai – duoti klientui peržiūrėti. */
+export const PRICES = [
+  { desc: 'Multitronic 01J (V30, VL300) valdymo bloko remontas', price: 'nuo 130 €' },
+  { desc: 'Multitronic 01J (V30, VL300) valdymo bloko programos atnaujinimas', price: '50 €' },
+  { desc: 'Multitronic 01J valdymo bloko programos perrašymas / keitimas (tik „nepririštiems" kompiuteriams)', price: '90 €' },
+  { desc: 'Multitronic 01J pavarų dėžės adaptacija', price: '30 €' },
+  { desc: 'Multitronic 0AW (V381F) valdymo bloko remontas', price: 'nuo 400 €' },
+  { desc: 'DSG DQ250 (6 pavarų) valdymo bloko remontas', price: 'nuo 250 €' },
+  { desc: 'DSG DQ250 (6 pavarų) valdymo bloko su hidrauline dalimi remontas', price: 'nuo 260 €' },
+  { desc: 'DSG DQ250 hidraulinės dalies solenoidų keitimas + adaptacija', price: 'nuo 150 €' },
+  { desc: 'DSG DQ250 valdymo bloko sulaužytos pagrindinės jungties keitimas', price: '300 €' },
+  { desc: 'DSG DQ250 sulaužytos solenoidų plokštės remontas', price: 'nuo 85 €' },
+  { desc: 'DSG DQ200 (7 pavarų 0AM) pilnas mechatroniko elektronikos + hidraulikos remontas su tepalų keitimu (tik automobiliui esant servise)', price: 'nuo 1 260 €', highlight: true },
+  { desc: 'DSG DQ200 (7 pavarų) sulaužytų daviklių remontas', price: 'nuo 150 €' },
+  { desc: 'DSG DQ250 arba DQ200 valdymo bloko programos atnaujinimas', price: '50 €' },
+  { desc: 'DSG DQ250 arba DQ200 valdymo bloko programavimas (parenkant pagal pavarų dėžę / automobilį)', price: '100 €' },
+  { desc: 'DSG 0AM arba 02E mechatroniko perrinkimas, plovimas', price: 'nuo 50 €' },
+  { desc: 'DSG 0AM arba 02E pavarų dėžės testavimas įdedant mūsų mechatroniką', price: '145 €' },
+  { desc: 'DSG 0AM arba 02E pavarų dėžės valdymo bloko adaptacija', price: '50 €' },
+  { desc: 'MB FTC 722.7 (A Klasė W168) valdymo bloko remontas', price: 'nuo 130 €' },
+  { desc: 'MB CVT 722.8 (A Klasė W169, B Klasė W245) valdymo bloko remontas', price: 'nuo 250 €' },
+  { desc: 'Pavarų dėžės valdymo bloko patikrinimas (diagnostika)', price: '20 €' },
+  { desc: 'Valdymo bloko (mechatroniko) nuėmimas / uždėjimas + tepalų užpylimas + adaptacija', price: 'nuo 100 €' },
+  { desc: 'Pavarų dėžės tepalo ir filtro keitimas (jei mechatronikas remontuojamas mūsų servise)', price: 'nemokamai', free: true },
+  { desc: 'Pavarų dėžės tepalo ir filtro keitimas', price: 'nuo 50 €' },
+  { desc: 'Valdymo bloko siuntimas per Kauno autobusų stoties siuntų tarnybą (abi kryptys)', price: '9 €' },
+]
+
+/* ─── DUK ─────────────────────────────────────────────────────
+   Atsakymai remiasi tik aukščiau esančiais faktais ir kainomis.
+   Naujas klausimas be patvirtinto fakto čia nepatenka. */
+export const FAQ_HOME = [
+  {
+    q: 'Kiek kainuoja DSG valdymo bloko remontas?',
+    a: 'DSG DQ250 (6 pavarų) valdymo bloko remontas kainuoja nuo 250 €, DQ200 (7 pavarų, sausa sankaba) – nuo 1 260 €. Multitronic 01J remontas – nuo 130 €, 0AW – nuo 400 €. Pilną kainoraštį rasite mūsų kainų puslapyje. Visiems darbams suteikiame 12 mėnesių garantiją.',
+  },
+  {
+    q: 'Kiek laiko užtrunka pavarų dėžės valdymo bloko remontas?',
+    a: 'Standartinis DSG ar Multitronic valdymo bloko remontas trunka 2–5 darbo dienas, priklausomai nuo gedimo sudėtingumo ir detalių prieinamumo. Skubus remontas galimas susitarus. Visada pateikiame tikslų terminą po pirminės diagnostikos.',
+  },
+  {
+    q: 'Ar galite paimti valdymo bloką iš kito miesto?',
+    a: 'Taip. Valdymo bloką galite atsiųsti per Kauno autobusų stoties siuntų tarnybą (jei tokia paslauga teikiama Jūsų mieste) arba bet kurią kurjerių tarnybą. Po remonto išsiunčiame atgal – siuntimo kaina 9 €.',
+  },
+  {
+    q: 'Kokie automobilių markės remontuojate?',
+    a: 'Specializuojamės vokiškuose automobiliuose: BMW, Audi, Volkswagen, Mercedes-Benz, Škoda ir SEAT. Atliekame visapusišką dyzelinių variklių remontą, elektronikos gedimų šalinimą, valdymo blokų remontą.',
+  },
+  {
+    q: 'Ar suteikiate garantiją atliktiems darbams?',
+    a: 'Taip, visiems atliktiems remonto darbams suteikiame 12 mėnesių garantiją. Garantiją taikome valdymo blokų remontui, dyzelinių variklių remontui ir visoms kitoms paslaugoms.',
+  },
+  {
+    q: 'Ką daryti, jei DSG dėžė pradėjo trūkčioti?',
+    a: 'Trūkčiojantys pavarų perjungimai dažniausiai rodo solenoidų gedimą, slėgio reguliavimo problemas arba mechatroniko elektronikos gedimus. Rekomenduojame nedelsti ir atlikti diagnostiką (20 €) – tai padės nustatyti tikrą priežastį prieš pasitvirtinant rimtesnėms problemoms.',
+  },
+  {
+    q: 'Kur esate ir kaip jus rasti?',
+    a: 'Esame Kauno rajone, Ringaudų kaime, Beržų g. 2R. Patogi vieta šalia Via Baltica magistralės. Važiuojant iš Kauno Marijampolės kryptimi, pravažiavus Lampėdžių tiltą, sukite link Orlen degalinės. Koordinatės: 54.88856, 23.81739.',
+  },
+  {
+    q: 'Ar galima užsiregistruoti internetu?',
+    a: 'Taip, mūsų svetainėje veikia online registracijos sistema. Pasirinkite paslaugą, datą ir patogų laiką – susisieksime patvirtinti. Taip pat galite skambinti telefonu +370 37 563 222 arba +370 656 60770.',
+  },
+]
+
+export const FAQ_CONTROL_UNITS = [
+  {
+    q: 'Kiek kainuoja DSG DQ250 valdymo bloko remontas?',
+    a: 'DSG DQ250 (6 pavarų) valdymo bloko remontas kainuoja nuo 250 €. Jei reikia remontuoti ir hidraulinę dalį – nuo 260 €. Solenoidų keitimas su adaptacija – nuo 150 €. Pilną kainoraštį rasite mūsų kainų puslapyje.',
+  },
+  {
+    q: 'Kuo skiriasi DQ200 ir DQ250 dėžės?',
+    a: 'DSG DQ250 yra 6 pavarų dėžė su šlapia sankaba (alyvoje), naudojama galingesniems varikliams. DQ200 yra 7 pavarų dėžė su sausa sankaba, naudojama mažesniems automobiliams. DQ200 mechatroniko remontas yra žymiai sudėtingesnis ir brangesnis (nuo 1260 €).',
+  },
+  {
+    q: 'Ar po valdymo bloko remonto reikia adaptacijos?',
+    a: 'Taip, po valdymo bloko remonto privalo būti atlikta pavarų dėžės adaptacija – ji „išmoko" sankabos sukibimo taškus ir slėgio reikšmes. Šią paslaugą įtraukiame į DSG mechatroniko remonto kainą.',
+  },
+  {
+    q: 'Kaip suprasti, kad tai valdymo bloko, o ne mechaninės dėžės gedimas?',
+    a: 'Pagrindiniai požymiai: klaidų kodai diagnostiniame įrenginyje (P0716, P0722, P1604 ir kt.), trūkčiojantys pavarų perjungimai, dėžė pereina į „avarinį režimą", sėdi „Workshop!" pranešimas. Tikslų atsakymą duos profesionali kompiuterinė diagnostika (20 €).',
+  },
+  {
+    q: 'Ar siūlote garantiją valdymo bloko remontui?',
+    a: 'Taip, visiems remontuotiems valdymo blokams suteikiame 12 mėnesių garantiją. Jei per garantinį laikotarpį atsiranda ta pati problema, perdirbame nemokamai.',
+  },
+  {
+    q: 'Galiu atsiųsti tik valdymo bloką iš kito miesto?',
+    a: 'Taip. Daugelis klientų iš kitų miestų siunčia mums tik valdymo bloką per Kauno autobusų stoties siuntų tarnybą arba kurjerį. Po remonto išsiunčiame atgal – siuntimas tarp Lietuvos miestų – 9 €.',
+  },
+]
+
+export const FAQ_SERVICES = [
+  {
+    q: 'Kokias automobilių markes aptarnaujate?',
+    a: 'Specializuojamės vokiškuose automobiliuose: BMW, Audi, Volkswagen, Mercedes-Benz, Škoda ir SEAT. Taip pat atliekame visuotinę kompiuterinę diagnostiką ir kondicionierių pildymą visų markių automobiliams.',
+  },
+  {
+    q: 'Kokią diagnostiką naudojate?',
+    a: 'Turime profesionalią VCDS (Ross-Tech) – VAG grupės automobiliams, Star Diagnosis XENTRY – Mercedes-Benz, ISTA – BMW, taip pat universalią OBD-II diagnostikos įrangą. Diagnostika kainuoja 20 €.',
+  },
+  {
+    q: 'Ar galite atlikti dyzelinio variklio purkštukų patikrą?',
+    a: 'Taip, atliekame dyzelinių variklių purkštukų patikrą profesionalia įranga. Galime patikrinti purkštukų sandarumą, įpurkšimo kiekius ir formą. Po patikros pateikiame išvadą ir rekomendacijas.',
+  },
+  {
+    q: 'Per kiek laiko atliekamas tepalų keitimas?',
+    a: 'Standartinis variklio tepalų ir filtro keitimas užtrunka ~30–45 min. Susitarus iš anksto galime aptarnauti tą pačią dieną. Naudojame originalią arba aukštos kokybės alyvą.',
+  },
+  {
+    q: 'Atliekate kondicionierių pildymą visiems automobiliams?',
+    a: 'Taip, pildome ir aptarnaujame kondicionierius visų markių automobiliams. Atliekame slėgio patikrą, R134a ir R1234yf freono pildymą, sandarumo testus.',
+  },
+]
+
 /* ─── KO MES NEŽINOME — negalima rašyti puslapyje ────────────────
    - Darbuotojų skaičius
    - Klientų skaičius, atsiliepimai, rekomendacijos

@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async'
+import useDocumentHead from './useDocumentHead'
 
 const SITE_NAME = 'Autoservisas TMT'
 const SITE_URL = 'https://www.tmt.lt'
@@ -82,85 +82,43 @@ export default function SEO({
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
   } : null
 
-  return (
-    <Helmet>
-      {/* Lang ir kalbos */}
-      <html lang="lt" />
+  useDocumentHead({
+    title: fullTitle,
+    meta: {
+      'name:description': desc,
+      ...(keywords ? { 'name:keywords': keywords } : {}),
+      'name:robots': noindex
+        ? 'noindex, nofollow'
+        : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+      'name:googlebot': noindex ? 'noindex, nofollow' : 'index, follow',
+      'name:author': 'UAB TMT',
+      'property:og:site_name': SITE_NAME,
+      'property:og:title': fullTitle,
+      'property:og:description': desc,
+      'property:og:type': article ? 'article' : 'website',
+      'property:og:locale': 'lt_LT',
+      'property:og:url': canonicalUrl,
+      'property:og:image': ogImage,
+      'property:og:image:width': '1200',
+      'property:og:image:height': '630',
+      'name:twitter:card': 'summary_large_image',
+      'name:twitter:title': fullTitle,
+      'name:twitter:description': desc,
+      'name:twitter:image': ogImage,
+      'name:geo.region': 'LT-KU',
+      'name:geo.placename': 'Ringaudai, Kauno rajonas',
+      'name:geo.position': '54.88856;23.81739',
+      'name:theme-color': '#191b1e',
+    },
+    links: {
+      canonical: canonicalUrl,
+      'alternate:lt': canonicalUrl,
+      'alternate:x-default': canonicalUrl,
+    },
+    jsonLd: [breadcrumbLd, jsonLd, faqLd, articleLd],
+  })
 
-      {/* Pagrindiniai */}
-      <title>{fullTitle}</title>
-      <meta name="description" content={desc} />
-      {keywords && <meta name="keywords" content={keywords} />}
-      <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'} />
-      <meta name="googlebot" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
-      <meta name="bingbot" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
-      <meta name="author" content="UAB TMT" />
-      <meta name="publisher" content="UAB TMT" />
-
-      {/* Canonical + hreflang */}
-      <link rel="canonical" href={canonicalUrl} />
-      <link rel="alternate" hreflang="lt" href={canonicalUrl} />
-      <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
-
-      {/* Open Graph */}
-      <meta property="og:site_name" content={SITE_NAME} />
-      <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={desc} />
-      <meta property="og:type" content={article ? 'article' : 'website'} />
-      <meta property="og:locale" content="lt_LT" />
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:image" content={ogImage} />
-      <meta property="og:image:secure_url" content={ogImage} />
-      <meta property="og:image:type" content="image/png" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={`${SITE_NAME} – ${title || 'Vokiškų automobilių remontas Kaune'}`} />
-
-      {/* Article specific OG */}
-      {article && article.published && <meta property="article:published_time" content={article.published} />}
-      {article && article.modified && <meta property="article:modified_time" content={article.modified} />}
-      {article && <meta property="article:publisher" content={SITE_URL} />}
-
-      {/* Twitter Cards */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={desc} />
-      <meta name="twitter:image" content={ogImage} />
-      <meta name="twitter:image:alt" content={`${SITE_NAME} – ${title || 'Vokiškų automobilių remontas'}`} />
-
-      {/* Geo (lokali paieška) */}
-      <meta name="geo.region" content="LT-KU" />
-      <meta name="geo.placename" content="Ringaudai, Kauno rajonas" />
-      <meta name="geo.position" content="54.88856;23.81739" />
-      <meta name="ICBM" content="54.88856, 23.81739" />
-
-      {/* Tema, mobile */}
-      <meta name="theme-color" content="#191b1e" />
-      <meta name="format-detection" content="telephone=yes,address=yes,email=yes" />
-
-      {/* Structured Data */}
-      {breadcrumbLd && (
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbLd)}
-        </script>
-      )}
-      {jsonLd && (
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </script>
-      )}
-      {faqLd && (
-        <script type="application/ld+json">
-          {JSON.stringify(faqLd)}
-        </script>
-      )}
-      {articleLd && (
-        <script type="application/ld+json">
-          {JSON.stringify(articleLd)}
-        </script>
-      )}
-    </Helmet>
-  )
+  return null
 }
 
 /* ════════════════════════════════════════════════════════════════

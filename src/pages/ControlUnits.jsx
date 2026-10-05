@@ -4,33 +4,8 @@ import Accordion from '../components/Accordion'
 import Icon from '../components/Icons'
 import AnimateOnScroll from '../components/AnimateOnScroll'
 import FAQ from '../components/FAQ'
+import { FAQ_CONTROL_UNITS as CONTROL_UNITS_FAQS } from '../content/facts'
 
-const CONTROL_UNITS_FAQS = [
-  {
-    q: 'Kiek kainuoja DSG DQ250 valdymo bloko remontas?',
-    a: 'DSG DQ250 (6 pavarų) valdymo bloko remontas kainuoja nuo 250 €. Jei reikia remontuoti ir hidraulinę dalį – nuo 260 €. Solenoidų keitimas su adaptacija – nuo 150 €. Pilną kainoraštį rasite mūsų kainų puslapyje.',
-  },
-  {
-    q: 'Kuo skiriasi DQ200 ir DQ250 dėžės?',
-    a: 'DSG DQ250 yra 6 pavarų dėžė su šlapia sankaba (alyvoje), naudojama galingesniems varikliams. DQ200 yra 7 pavarų dėžė su sausa sankaba, naudojama mažesniems automobiliams. DQ200 mechatroniko remontas yra žymiai sudėtingesnis ir brangesnis (nuo 1260 €).',
-  },
-  {
-    q: 'Ar po valdymo bloko remonto reikia adaptacijos?',
-    a: 'Taip, po valdymo bloko remonto privalo būti atlikta pavarų dėžės adaptacija – ji „išmoko" sankabos sukibimo taškus ir slėgio reikšmes. Šią paslaugą įtraukiame į DSG mechatroniko remonto kainą.',
-  },
-  {
-    q: 'Kaip suprasti, kad tai valdymo bloko, o ne mechaninės dėžės gedimas?',
-    a: 'Pagrindiniai požymiai: klaidų kodai diagnostiniame įrenginyje (P0716, P0722, P1604 ir kt.), trūkčiojantys pavarų perjungimai, dėžė pereina į „avarinį režimą", sėdi „Workshop!" pranešimas. Tikslų atsakymą duos profesionali kompiuterinė diagnostika (20 €).',
-  },
-  {
-    q: 'Ar siūlote garantiją valdymo bloko remontui?',
-    a: 'Taip, visiems remontuotiems valdymo blokams suteikiame 12 mėnesių garantiją. Jei per garantinį laikotarpį atsiranda ta pati problema, perdirbame nemokamai.',
-  },
-  {
-    q: 'Galiu atsiųsti tik valdymo bloką iš kito miesto?',
-    a: 'Taip. Daugelis klientų iš kitų miestų siunčia mums tik valdymo bloką per Kauno autobusų stoties siuntų tarnybą arba kurjerį. Po remonto išsiunčiame atgal – siuntimas tarp Lietuvos miestų – 9 €.',
-  },
-]
 
 const units = [
   {

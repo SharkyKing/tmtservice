@@ -3,29 +3,8 @@ import SEO from '../components/SEO'
 import Icon from '../components/Icons'
 import AnimateOnScroll from '../components/AnimateOnScroll'
 import FAQ from '../components/FAQ'
+import { FAQ_SERVICES as SERVICES_FAQS } from '../content/facts'
 
-const SERVICES_FAQS = [
-  {
-    q: 'Kokias automobilių markes aptarnaujate?',
-    a: 'Specializuojamės vokiškuose automobiliuose: BMW, Audi, Volkswagen, Mercedes-Benz, Škoda ir SEAT. Taip pat atliekame visuotinę kompiuterinę diagnostiką ir kondicionierių pildymą visų markių automobiliams.',
-  },
-  {
-    q: 'Kokią diagnostiką naudojate?',
-    a: 'Turime profesionalią VCDS (Ross-Tech) – VAG grupės automobiliams, Star Diagnosis XENTRY – Mercedes-Benz, ISTA – BMW, taip pat universalią OBD-II diagnostikos įrangą. Diagnostika kainuoja 20 €.',
-  },
-  {
-    q: 'Ar galite atlikti dyzelinio variklio purkštukų patikrą?',
-    a: 'Taip, atliekame dyzelinių variklių purkštukų patikrą profesionalia įranga. Galime patikrinti purkštukų sandarumą, įpurkšimo kiekius ir formą. Po patikros pateikiame išvadą ir rekomendacijas.',
-  },
-  {
-    q: 'Per kiek laiko atliekamas tepalų keitimas?',
-    a: 'Standartinis variklio tepalų ir filtro keitimas užtrunka ~30–45 min. Susitarus iš anksto galime aptarnauti tą pačią dieną. Naudojame originalią arba aukštos kokybės alyvą.',
-  },
-  {
-    q: 'Atliekate kondicionierių pildymą visiems automobiliams?',
-    a: 'Taip, pildome ir aptarnaujame kondicionierius visų markių automobiliams. Atliekame slėgio patikrą, R134a ir R1234yf freono pildymą, sandarumo testus.',
-  },
-]
 
 const services = [
   { icon: 'diagnostic',  text: 'Kompiuterinė diagnostika' },

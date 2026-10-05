@@ -1,0 +1,59 @@
+# Vite SPA ant Apache / LiteSpeed (Hostinger).
+# Vault: 30-patterns/vite-spa-on-apache-shared-hosting
+#
+# Be šio failo kiekvienas kelias išskyrus / duotų 404, o puslapio
+# perkrovimas ant /robotics sulaužytų svetainę.
+#
+# `npm run build` nukopijuoja public/ į dist/ kaip yra, tad šis failas
+# iškeliauja kartu su bundle. Keliant per FTP – nepamiršti dotfile'o,
+# dauguma klientų jį slepia.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # HTTPS ir www nuėmimas vienu peradresavimu
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # ── Seni tmt.lt URL → nauji (301, dėl Google reitingo) ──
+  # Vault: 20-knowledge/tmt-seo-migracija
+  RewriteRule ^pradzia/?$ /autoservisas [R=301,L]
+  RewriteRule ^valdymo-bloku-remontas-galerija/?$ /valdymo-bloku-remontas/galerija [R=301,L]
+  RewriteRule ^valdymo-bloku-remontas-kainos/?$ /valdymo-bloku-remontas/kainos [R=301,L]
+  RewriteRule ^kontaktai-kaip-mus-rasti/?$ /kontaktai/kaip-mus-rasti [R=301,L]
+
+  # Tikri failai ir katalogai atiduodami kaip yra
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Trūkstami asset'ai – tikri 404, ne app shell su 200
+  RewriteRule ^assets/ - [L,R=404]
+
+  # Visa kita – puslapis, kurį piešia aplikacija
+  RewriteRule ^ /index.html [L]
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "index\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>

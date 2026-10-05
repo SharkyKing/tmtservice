@@ -2,33 +2,8 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import Icon from '../components/Icons'
 import AnimateOnScroll from '../components/AnimateOnScroll'
+import { PRICES } from '../content/facts'
 
-const prices = [
-  { desc: 'Multitronic 01J (V30, VL300) valdymo bloko remontas', price: 'nuo 130 €' },
-  { desc: 'Multitronic 01J (V30, VL300) valdymo bloko programos atnaujinimas', price: '50 €' },
-  { desc: 'Multitronic 01J valdymo bloko programos perrašymas / keitimas (tik „nepririštiems" kompiuteriams)', price: '90 €' },
-  { desc: 'Multitronic 01J pavarų dėžės adaptacija', price: '30 €' },
-  { desc: 'Multitronic 0AW (V381F) valdymo bloko remontas', price: 'nuo 400 €' },
-  { desc: 'DSG DQ250 (6 pavarų) valdymo bloko remontas', price: 'nuo 250 €' },
-  { desc: 'DSG DQ250 (6 pavarų) valdymo bloko su hidrauline dalimi remontas', price: 'nuo 260 €' },
-  { desc: 'DSG DQ250 hidraulinės dalies solenoidų keitimas + adaptacija', price: 'nuo 150 €' },
-  { desc: 'DSG DQ250 valdymo bloko sulaužytos pagrindinės jungties keitimas', price: '300 €' },
-  { desc: 'DSG DQ250 sulaužytos solenoidų plokštės remontas', price: 'nuo 85 €' },
-  { desc: 'DSG DQ200 (7 pavarų 0AM) pilnas mechatroniko elektronikos + hidraulikos remontas su tepalų keitimu (tik automobiliui esant servise)', price: 'nuo 1 260 €', highlight: true },
-  { desc: 'DSG DQ200 (7 pavarų) sulaužytų daviklių remontas', price: 'nuo 150 €' },
-  { desc: 'DSG DQ250 arba DQ200 valdymo bloko programos atnaujinimas', price: '50 €' },
-  { desc: 'DSG DQ250 arba DQ200 valdymo bloko programavimas (parenkant pagal pavarų dėžę / automobilį)', price: '100 €' },
-  { desc: 'DSG 0AM arba 02E mechatroniko perrinkimas, plovimas', price: 'nuo 50 €' },
-  { desc: 'DSG 0AM arba 02E pavarų dėžės testavimas įdedant mūsų mechatroniką', price: '145 €' },
-  { desc: 'DSG 0AM arba 02E pavarų dėžės valdymo bloko adaptacija', price: '50 €' },
-  { desc: 'MB FTC 722.7 (A Klasė W168) valdymo bloko remontas', price: 'nuo 130 €' },
-  { desc: 'MB CVT 722.8 (A Klasė W169, B Klasė W245) valdymo bloko remontas', price: 'nuo 250 €' },
-  { desc: 'Pavarų dėžės valdymo bloko patikrinimas (diagnostika)', price: '20 €' },
-  { desc: 'Valdymo bloko (mechatroniko) nuėmimas / uždėjimas + tepalų užpylimas + adaptacija', price: 'nuo 100 €' },
-  { desc: 'Pavarų dėžės tepalo ir filtro keitimas (jei mechatronikas remontuojamas mūsų servise)', price: 'nemokamai', free: true },
-  { desc: 'Pavarų dėžės tepalo ir filtro keitimas', price: 'nuo 50 €' },
-  { desc: 'Valdymo bloko siuntimas per Kauno autobusų stoties siuntų tarnybą (abi kryptys)', price: '9 €' },
-]
 
 /* Vienas antrascių šaltinis: iš jo piešiamas <thead> IR data-antraste
    kortelėms siaurame ekrane. Vault: lenteles-virsta-kortelemis */
@@ -96,7 +71,7 @@ export default function ControlUnitsPrices() {
                 </tr>
               </thead>
               <tbody>
-                {prices.map(({ desc, price, highlight, free }) => (
+                {PRICES.map(({ desc, price, highlight, free }) => (
                   <tr key={desc} className={`${highlight ? 'price-highlight' : ''} ${free ? 'price-free' : ''}`}>
                     <td data-antraste={TABLE_HEADS[0]}>{desc}</td>
                     <td data-antraste={TABLE_HEADS[1]} className="tnum">{price}</td>
