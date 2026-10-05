@@ -6,8 +6,8 @@
 
   <url>
     <loc>https://www.tmt.lt/</loc>
-    <lastmod>2026-05-23</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="lt" href="https://www.tmt.lt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.tmt.lt/"/>
@@ -16,6 +16,13 @@
       <image:title>Autoservisas TMT – Vokiškų automobilių remontas Kaune</image:title>
       <image:caption>UAB TMT logotipas ir pagrindinis vaizdas</image:caption>
     </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.tmt.lt/autoservisas</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
   </url>
 
   <url>

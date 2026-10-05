@@ -48,7 +48,7 @@ export default function Welding() {
         keywords="Lazerinis suvirinimas, metalo suvirinimas, MIG MAG TIG, plazminis suvirinimas, robotinis suvirinimas, DSG movos suvirinimas, lazerinis graviravimas"
         canonical="metalo-suvirinimas"
         breadcrumbs={[
-          { name: 'Pradžia', url: '/' },
+          { name: 'Pradžia', url: '/autoservisas' },
           { name: 'Metalo suvirinimas', url: '/metalo-suvirinimas' },
         ]}
         jsonLd={WELDING_LD}
@@ -57,7 +57,7 @@ export default function Welding() {
       <div className="page-hero">
         <div className="container">
           <nav className="breadcrumb" aria-label="Naršymo kelias">
-            <Link to="/">Pradžia</Link>
+            <Link to="/autoservisas">Pradžia</Link>
             <span className="breadcrumb-sep">/</span>
             <span className="breadcrumb-current">Metalo suvirinimas</span>
           </nav>

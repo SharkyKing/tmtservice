@@ -30,6 +30,7 @@ const distDir = join(__dirname, '..', 'dist')
    Privalo atitikti src/App.jsx routes. */
 const ROUTES = [
   '/',
+  '/autoservisas',
   '/autoserviso-paslaugos',
   '/valdymo-bloku-remontas',
   '/valdymo-bloku-remontas/galerija',
@@ -37,7 +38,6 @@ const ROUTES = [
   '/metalo-suvirinimas',
   '/kontaktai',
   '/kontaktai/kaip-mus-rasti',
-  '/registracija',
 ]
 
 const PORT = 4173

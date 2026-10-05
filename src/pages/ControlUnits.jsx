@@ -298,7 +298,7 @@ export default function ControlUnits() {
         keywords="DSG remontas, Multitronic remontas, 0AW, 01J, 02E, 0AM, DQ200, DQ250, Mercedes CVT, valdymo bloku remontas, mechatronikas"
         canonical="valdymo-bloku-remontas"
         breadcrumbs={[
-          { name: 'Pradžia', url: '/' },
+          { name: 'Pradžia', url: '/autoservisas' },
           { name: 'Valdymo blokų remontas', url: '/valdymo-bloku-remontas' },
         ]}
         faqs={CONTROL_UNITS_FAQS}
@@ -307,7 +307,7 @@ export default function ControlUnits() {
       <div className="page-hero">
         <div className="container">
           <nav className="breadcrumb" aria-label="Naršymo kelias">
-            <Link to="/">Pradžia</Link>
+            <Link to="/autoservisas">Pradžia</Link>
             <span className="breadcrumb-sep">/</span>
             <span className="breadcrumb-current">Valdymo blokų remontas</span>
           </nav>

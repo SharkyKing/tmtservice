@@ -19,7 +19,7 @@ export default function NotFound() {
                 arba ištrintas. Grįžkite į pradžią arba susisiekite su mumis.
               </p>
               <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link to="/" className="btn btn-primary">
+                <Link to="/autoservisas" className="btn btn-primary">
                   <Icon name="arrowRight" size={16} style={{ transform: 'rotate(180deg)' }} />
                   Į pradžią
                 </Link>

@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Layout from './components/Layout'
+import Gateway from './pages/Gateway'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import ControlUnits from './pages/ControlUnits'
@@ -24,9 +25,10 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="pradzia" element={<Navigate to="/" replace />} />
+        <Route path="/" element={<Gateway />} />
+        <Route element={<Layout />}>
+          <Route path="autoservisas" element={<Home />} />
+          <Route path="pradzia" element={<Navigate to="/autoservisas" replace />} />
           <Route path="autoserviso-paslaugos" element={<Services />} />
           <Route path="valdymo-bloku-remontas" element={<ControlUnits />} />
           <Route path="valdymo-bloku-remontas/galerija" element={<ControlUnitsGallery />} />

@@ -72,7 +72,7 @@ export default function Services() {
         keywords="Autoservisas Kaune, BMW remontas, Audi remontas, VW remontas, Mercedes remontas, dyzelinis variklis, elektronika, diagnostika, kondicionierių pildymas"
         canonical="autoserviso-paslaugos"
         breadcrumbs={[
-          { name: 'Pradžia', url: '/' },
+          { name: 'Pradžia', url: '/autoservisas' },
           { name: 'Autoserviso paslaugos', url: '/autoserviso-paslaugos' },
         ]}
         jsonLd={SERVICE_LD}
@@ -82,7 +82,7 @@ export default function Services() {
       <div className="page-hero">
         <div className="container">
           <nav className="breadcrumb" aria-label="Naršymo kelias">
-            <Link to="/">Pradžia</Link>
+            <Link to="/autoservisas">Pradžia</Link>
             <span className="breadcrumb-sep">/</span>
             <span className="breadcrumb-current">Autoserviso paslaugos</span>
           </nav>

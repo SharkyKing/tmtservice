@@ -60,7 +60,7 @@ export default function Home() {
         title="Autoservisas Kaune"
         description="UAB TMT – vokiškų automobilių (BMW, Audi, VW, Mercedes) remontas Kauno rajone. DSG, Multitronic, Mercedes CVT valdymo blokų remontas. 20+ metų patirtis, 12 mėn. garantija. ☎ +370 37 563 222"
         keywords="autoservisas Kaune, BMW remontas, Audi remontas, VW remontas, Mercedes remontas, DSG remontas, Multitronic remontas, valdymo bloku remontas, mechatroniko remontas, dyzelinis variklis"
-        canonical=""
+        canonical="autoservisas"
         jsonLd={HOME_LD}
         faqs={HOME_FAQS}
       />

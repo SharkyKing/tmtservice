@@ -46,7 +46,7 @@ export default function ControlUnitsPrices() {
         keywords="DSG remonto kaina, Multitronic kaina, valdymo bloku remontas kaina, mechatroniko remontas kaina, DQ200 kaina, DQ250 kaina"
         canonical="valdymo-bloku-remontas/kainos"
         breadcrumbs={[
-          { name: 'Pradžia', url: '/' },
+          { name: 'Pradžia', url: '/autoservisas' },
           { name: 'Valdymo blokų remontas', url: '/valdymo-bloku-remontas' },
           { name: 'Kainos', url: '/valdymo-bloku-remontas/kainos' },
         ]}
@@ -56,7 +56,7 @@ export default function ControlUnitsPrices() {
       <div className="page-hero">
         <div className="container">
           <nav className="breadcrumb" aria-label="Naršymo kelias">
-            <Link to="/">Pradžia</Link>
+            <Link to="/autoservisas">Pradžia</Link>
             <span className="breadcrumb-sep">/</span>
             <Link to="/valdymo-bloku-remontas">Valdymo blokų remontas</Link>
             <span className="breadcrumb-sep">/</span>

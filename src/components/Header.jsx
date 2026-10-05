@@ -4,7 +4,7 @@ import Icon from './Icons'
 import Logo from './Logo'
 
 const navLinks = [
-  { to: '/', label: 'Pradžia', end: true },
+  { to: '/autoservisas', label: 'Pradžia', end: true },
   { to: '/autoserviso-paslaugos', label: 'Paslaugos' },
   { to: '/valdymo-bloku-remontas', label: 'Valdymo blokų remontas' },
   { to: '/metalo-suvirinimas', label: 'Metalo suvirinimas' },
@@ -23,7 +23,7 @@ export default function Header() {
     <header className="site-header">
       <div className="container">
         <div className="header-top">
-          <Link to="/" className="header-logo" aria-label="Autoservisas TMT – pagrindinis">
+          <Link to="/autoservisas" className="header-logo" aria-label="Autoservisas TMT – pagrindinis">
             <Logo size={56} />
             <span className="tmt-logo-text">
               <span className="tmt-logo-name" style={{ color: '#fff' }}>Autoservisas TMT</span>
@@ -45,6 +45,17 @@ export default function Header() {
               I–V 9:00–18:00 (pertrauka 13–14)
             </span>
           </div>
+
+          <a
+            className="cross-link"
+            href="https://www.tmtrobotics.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="UAB TMT antroji veikla – robotinio suvirinimo sistemos"
+          >
+            TMT Robotics
+            <Icon name="arrowRight" size={11} />
+          </a>
 
           <a
             href="tel:+37037563222"

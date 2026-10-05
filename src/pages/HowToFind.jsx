@@ -12,7 +12,7 @@ export default function HowToFind() {
         keywords="TMT vieta, kaip rasti autoservisą, Ringaudai autoservisas, Via Baltica autoservisas"
         canonical="kontaktai/kaip-mus-rasti"
         breadcrumbs={[
-          { name: 'Pradžia', url: '/' },
+          { name: 'Pradžia', url: '/autoservisas' },
           { name: 'Kontaktai', url: '/kontaktai' },
           { name: 'Kaip mus rasti', url: '/kontaktai/kaip-mus-rasti' },
         ]}
@@ -21,7 +21,7 @@ export default function HowToFind() {
       <div className="page-hero">
         <div className="container">
           <nav className="breadcrumb" aria-label="Naršymo kelias">
-            <Link to="/">Pradžia</Link>
+            <Link to="/autoservisas">Pradžia</Link>
             <span className="breadcrumb-sep">/</span>
             <Link to="/kontaktai">Kontaktai</Link>
             <span className="breadcrumb-sep">/</span>

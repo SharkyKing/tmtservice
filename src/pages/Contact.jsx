@@ -12,7 +12,7 @@ export default function Contact() {
         keywords="TMT kontaktai, autoservisas Kaunas adresas, TMT telefonas, autoservisas Ringaudai"
         canonical="kontaktai"
         breadcrumbs={[
-          { name: 'Pradžia', url: '/' },
+          { name: 'Pradžia', url: '/autoservisas' },
           { name: 'Kontaktai', url: '/kontaktai' },
         ]}
       />
@@ -20,7 +20,7 @@ export default function Contact() {
       <div className="page-hero">
         <div className="container">
           <nav className="breadcrumb" aria-label="Naršymo kelias">
-            <Link to="/">Pradžia</Link>
+            <Link to="/autoservisas">Pradžia</Link>
             <span className="breadcrumb-sep">/</span>
             <span className="breadcrumb-current">Kontaktai</span>
           </nav>

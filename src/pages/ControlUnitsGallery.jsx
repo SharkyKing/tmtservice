@@ -46,7 +46,7 @@ export default function ControlUnitsGallery() {
         keywords="DSG remontas galerija, Multitronic remontas nuotraukos, valdymo bloko remontas procesas, mechatroniko remontas"
         canonical="valdymo-bloku-remontas/galerija"
         breadcrumbs={[
-          { name: 'Pradžia', url: '/' },
+          { name: 'Pradžia', url: '/autoservisas' },
           { name: 'Valdymo blokų remontas', url: '/valdymo-bloku-remontas' },
           { name: 'Galerija', url: '/valdymo-bloku-remontas/galerija' },
         ]}
@@ -55,7 +55,7 @@ export default function ControlUnitsGallery() {
       <div className="page-hero">
         <div className="container">
           <nav className="breadcrumb" aria-label="Naršymo kelias">
-            <Link to="/">Pradžia</Link>
+            <Link to="/autoservisas">Pradžia</Link>
             <span className="breadcrumb-sep">/</span>
             <Link to="/valdymo-bloku-remontas">Valdymo blokų remontas</Link>
             <span className="breadcrumb-sep">/</span>

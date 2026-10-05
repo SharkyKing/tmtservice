@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link to="/" className="header-logo" style={{ textDecoration: 'none' }} aria-label="Autoservisas TMT">
+            <Link to="/autoservisas" className="header-logo" style={{ textDecoration: 'none' }} aria-label="Autoservisas TMT">
               <Logo size={56} />
               <span className="tmt-logo-text">
                 <span className="tmt-logo-name" style={{ color: '#fff' }}>Autoservisas TMT</span>
@@ -39,7 +39,8 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Navigacija</h4>
             <nav className="footer-links" aria-label="Apatinis meniu">
-              <Link to="/">Pradžia</Link>
+              <Link to="/autoservisas">Pradžia</Link>
+              <Link to="/">Veiklų pasirinkimas</Link>
               <Link to="/autoserviso-paslaugos">Autoserviso paslaugos</Link>
               <Link to="/valdymo-bloku-remontas">Valdymo blokų remontas</Link>
               <Link to="/valdymo-bloku-remontas/galerija">Galerija</Link>
