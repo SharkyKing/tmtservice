@@ -30,6 +30,10 @@ const prices = [
   { desc: 'Valdymo bloko siuntimas per Kauno autobusų stoties siuntų tarnybą (abi kryptys)', price: '9 €' },
 ]
 
+/* Vienas antrascių šaltinis: iš jo piešiamas <thead> IR data-antraste
+   kortelėms siaurame ekrane. Vault: lenteles-virsta-kortelemis */
+const TABLE_HEADS = ['Darbų aprašas', 'Kaina, EUR']
+
 const PRICE_LD = {
   '@context': 'https://schema.org',
   '@type': 'PriceSpecification',
@@ -88,15 +92,14 @@ export default function ControlUnitsPrices() {
             <table className="price-table" aria-label="Valdymo blokų remonto kainos">
               <thead>
                 <tr>
-                  <th>Darbų aprašas</th>
-                  <th>Kaina, EUR</th>
+                  {TABLE_HEADS.map(h => <th key={h}>{h}</th>)}
                 </tr>
               </thead>
               <tbody>
                 {prices.map(({ desc, price, highlight, free }) => (
                   <tr key={desc} className={`${highlight ? 'price-highlight' : ''} ${free ? 'price-free' : ''}`}>
-                    <td>{desc}</td>
-                    <td>{price}</td>
+                    <td data-antraste={TABLE_HEADS[0]}>{desc}</td>
+                    <td data-antraste={TABLE_HEADS[1]} className="tnum">{price}</td>
                   </tr>
                 ))}
               </tbody>

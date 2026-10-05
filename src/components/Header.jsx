@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import Icon from './Icons'
 import Logo from './Logo'
+import Icon from './Icons'
+import { AUTOSERVICE } from '../content/facts'
 
 const navLinks = [
   { to: '/autoservisas', label: 'Pradžia', end: true },
@@ -20,80 +21,74 @@ export default function Header() {
   }, [open])
 
   return (
-    <header className="site-header">
-      <div className="container">
-        <div className="header-top">
-          <Link to="/autoservisas" className="header-logo" aria-label="Autoservisas TMT – pagrindinis">
-            <Logo size={56} />
-            <span className="tmt-logo-text">
-              <span className="tmt-logo-name" style={{ color: '#fff' }}>Autoservisas TMT</span>
-              <span className="tmt-logo-tagline">Vokiški automobiliai · Kauno r.</span>
-            </span>
-          </Link>
+    <header className="as-bar">
+      <div className="as-bar-inner">
+        <Link to="/autoservisas" className="as-brand" aria-label="Autoservisas TMT – pradžia">
+          <Logo size={38} />
+          <span>
+            <strong>Autoservisas TMT</strong>
+            <em>Vokiški automobiliai · Kauno r.</em>
+          </span>
+        </Link>
 
-          <div className="header-contact">
-            <a href="tel:+37037563222" className="header-phone">
-              <Icon name="phone" size={16} />
-              +370 37 563 222
-            </a>
-            <a href="tel:+37065660770" className="header-phone" style={{ fontSize: '0.85rem' }}>
-              <Icon name="phone" size={14} />
-              +370 656 60770
-            </a>
-            <span className="header-hours">
-              <Icon name="clock" size={12} />
-              I–V 9:00–18:00 (pertrauka 13–14)
-            </span>
-          </div>
+        <nav className="as-nav" aria-label="Pagrindinis meniu">
+          {navLinks.map(({ to, label, end }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={end}
+              className={({ isActive }) => `as-nav-link${isActive ? ' active' : ''}`}
+            >
+              {label}
+            </NavLink>
+          ))}
+        </nav>
 
-          <Link
-            className="cross-link"
-            to="/robotics"
-            title="UAB TMT antroji veikla – robotinio suvirinimo sistemos"
-          >
+        <div className="as-bar-side">
+          <a href={`tel:${AUTOSERVICE.phones[0].replace(/\s/g, '')}`} className="as-phone">
+            <Icon name="phone" size={15} />
+            {AUTOSERVICE.phones[0]}
+          </a>
+          <Link to="/robotics" className="as-cross" title="UAB TMT antroji veikla">
             TMT Robotics
             <Icon name="arrowRight" size={11} />
           </Link>
-
-          <a
-            href="tel:+37037563222"
-            className="mobile-call-cta"
-            aria-label="Skambinti +370 37 563 222"
-          >
-            <Icon name="phone" size={18} />
-          </a>
-
           <button
-            className="hamburger"
+            className="as-burger"
             aria-label={open ? 'Uždaryti meniu' : 'Atidaryti meniu'}
             aria-expanded={open}
             onClick={() => setOpen(o => !o)}
           >
-            <span style={{ transform: open ? 'rotate(45deg) translate(5px, 6px)' : undefined }} />
-            <span style={{ opacity: open ? 0 : 1, transform: open ? 'translateX(-8px)' : undefined }} />
-            <span style={{ transform: open ? 'rotate(-45deg) translate(5px, -6px)' : undefined }} />
+            <span style={{ transform: open ? 'rotate(45deg) translate(4px, 5px)' : undefined }} />
+            <span style={{ opacity: open ? 0 : 1 }} />
+            <span style={{ transform: open ? 'rotate(-45deg) translate(4px, -5px)' : undefined }} />
           </button>
         </div>
       </div>
 
-      <nav className="site-nav" aria-label="Pagrindinis meniu">
-        <div className="container">
-          <div className={`nav-inner${open ? ' open' : ''}`}>
-            {navLinks.map(({ to, label, end, cta }) => (
-              <NavLink
-                key={to}
-                to={to}
-                end={end}
-                className={({ isActive }) => `nav-link${isActive ? ' active' : ''}${cta ? ' nav-cta' : ''}`}
-                onClick={() => setOpen(false)}
-              >
-                {cta && <Icon name="check" size={14} />}
-                {label}
-              </NavLink>
-            ))}
-          </div>
-        </div>
-      </nav>
+      {open && (
+        <nav className="as-mobile" aria-label="Meniu">
+          {navLinks.map(({ to, label, end }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={end}
+              className={({ isActive }) => `as-mobile-link${isActive ? ' active' : ''}`}
+              onClick={() => setOpen(false)}
+            >
+              {label}
+            </NavLink>
+          ))}
+          <Link to="/robotics" className="as-mobile-link as-mobile-link--alt" onClick={() => setOpen(false)}>
+            TMT Robotics
+            <Icon name="arrowRight" size={13} />
+          </Link>
+          <a href={`tel:${AUTOSERVICE.phones[0].replace(/\s/g, '')}`} className="as-mobile-call">
+            <Icon name="phone" size={15} />
+            {AUTOSERVICE.phones[0]}
+          </a>
+        </nav>
+      )}
     </header>
   )
 }
