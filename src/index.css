@@ -2805,6 +2805,273 @@ button { font-family: inherit; }
 
 @media (max-width: 900px) { .cross-link { display: none; } }
 
+/* ═══════════════════════════════════════════════════════════════
+   LAZERINĖ SIŪLĖ – teminė animacija (grynas SVG + CSS)
+   Ramybės būsena: siūlė suvirinta. Animacija tik prideda judesį.
+   ═══════════════════════════════════════════════════════════════ */
+
+.laser-seam { width: 100%; height: auto; display: block; }
+
+.laser-seam .ls-grid line { stroke: rgba(27,28,30,.18); stroke-width: 1; }
+.laser-seam .ls-label line { stroke: rgba(27,28,30,.3); stroke-width: 1; }
+.laser-seam .ls-label text {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .16em;
+  fill: var(--text-muted);
+}
+
+.laser-seam .ls-seam-base {
+  stroke: #9aa0a7;
+  stroke-width: 2.5;
+  stroke-dasharray: 5 4;
+}
+/* Suvirinta dalis – ramybėje PILNA (matoma be animacijos) */
+.laser-seam .ls-seam-done {
+  stroke: #206ca4;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+.laser-seam .ls-pool { opacity: .9; }
+.laser-seam .ls-sparks line {
+  stroke: #ffd79a;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: .85;
+}
+
+/* Ramybėje galvutė stovi siūlės gale, nieko nejuda */
+.laser-seam .ls-head { transform: translate(400px, 46px); }
+
+/* ─── Judesys – tik kai jo prašoma ──────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .laser-seam .ls-head {
+    animation: ls-travel 7s cubic-bezier(.45,0,.55,1) infinite;
+  }
+  .laser-seam .ls-seam-done {
+    stroke-dasharray: 360;
+    animation: ls-weld 7s cubic-bezier(.45,0,.55,1) infinite;
+  }
+  .laser-seam .ls-pool { animation: ls-pulse .5s ease-in-out infinite alternate; }
+  .laser-seam .ls-sparks { animation: ls-spark .22s steps(2, jump-none) infinite; }
+}
+
+@keyframes ls-travel {
+  0%        { transform: translate(40px, 46px); }
+  70%, 100% { transform: translate(400px, 46px); }
+}
+@keyframes ls-weld {
+  0%        { stroke-dashoffset: 360; }
+  70%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes ls-pulse {
+  from { opacity: .55; transform: scale(.82); transform-origin: 0 76px; }
+  to   { opacity: 1;   transform: scale(1.12); transform-origin: 0 76px; }
+}
+@keyframes ls-spark {
+  from { opacity: .25; }
+  to   { opacity: .95; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TMT ROBOTICS – atskira veikla, atskiras registras.
+   Šviesi, pramoninė, monochrominė; mėlyna tik kaip lazerio akcentas.
+   ═══════════════════════════════════════════════════════════════ */
+
+.rb {
+  --rb-ink: #15171a;
+  --rb-ink-2: #4b4f55;
+  --rb-ink-3: #80858c;
+  --rb-line: rgba(21,23,26,.12);
+  --rb-paper: #fafafa;
+  --rb-dark: #15171a;
+  background: #fff;
+  color: var(--rb-ink);
+}
+.rb-wrap { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem); }
+.rb-wrap--narrow { max-width: 820px; }
+
+/* ─── Juosta ─── */
+.rb-bar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+  padding: .75rem clamp(1rem, 4vw, 2.5rem);
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rb-line);
+}
+.rb-brand { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; }
+.rb-brand span { display: flex; flex-direction: column; line-height: 1.2; }
+.rb-brand strong { font-size: 1rem; font-weight: 800; color: var(--rb-ink); letter-spacing: -.01em; }
+.rb-brand em {
+  font-style: normal; font-family: var(--font-mono);
+  font-size: .62rem; text-transform: uppercase; letter-spacing: .13em; color: var(--rb-ink-3);
+}
+.rb-nav { display: flex; align-items: center; gap: 1.4rem; }
+.rb-nav a {
+  font-size: .85rem; font-weight: 500; color: var(--rb-ink-2); text-decoration: none;
+  transition: color var(--transition);
+}
+.rb-nav a:hover { color: var(--rb-ink); }
+.rb-cross {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .4rem .85rem; border: 1px solid var(--rb-line); border-radius: 999px;
+  font-family: var(--font-mono); font-size: .66rem !important;
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.rb-cross:hover { border-color: var(--rb-ink); background: var(--rb-paper); }
+@media (max-width: 780px) { .rb-nav a:not(.rb-cross) { display: none; } }
+
+/* ─── Hero ─── */
+.rb-hero { padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 3rem); }
+.rb-hero-inner {
+  width: 100%; max-width: 1160px; margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+.rb-hero h1 {
+  font-size: clamp(2.4rem, 1.4rem + 4vw, 4.6rem);
+  font-weight: 900; line-height: .98; letter-spacing: -.035em;
+  margin: .6rem 0 1.1rem;
+}
+.rb-hero h1 span { color: var(--rb-ink-3); }
+.rb-lead { font-size: clamp(1rem, .95rem + .3vw, 1.15rem); color: var(--rb-ink-2); line-height: 1.65; max-width: 46ch; }
+.rb-hero-cta { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1.75rem; }
+.rb-note {
+  display: inline-flex; align-items: center; gap: .45rem;
+  margin-top: 1.5rem; font-family: var(--font-mono);
+  font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--rb-ink-3);
+}
+.rb-hero-art {
+  background: var(--rb-paper);
+  border: 1px solid var(--rb-line);
+  border-radius: var(--radius-lg);
+  padding: clamp(1rem, 3vw, 2rem);
+}
+@media (max-width: 900px) { .rb-hero-inner { grid-template-columns: 1fr; } }
+
+/* ─── Nuotraukų juosta ─── */
+.rb-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--rb-line); }
+.rb-strip img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  filter: grayscale(1) contrast(1.06);
+  transition: filter .5s ease, transform .6s cubic-bezier(.22,1,.36,1);
+}
+.rb-strip img:hover { filter: grayscale(.2) contrast(1.02); transform: scale(1.02); }
+@media (max-width: 720px) { .rb-strip { grid-template-columns: repeat(2, 1fr); } }
+
+/* ─── Sekcijos ─── */
+.rb-section { padding: clamp(3rem, 7vw, 6rem) 0; }
+.rb-section--alt { background: var(--rb-paper); }
+.rb-section--dark { background: var(--rb-dark); color: #fff; }
+.rb-section--dark .eyebrow { color: rgba(255,255,255,.5); }
+.rb-section--dark .rb-sub { color: rgba(255,255,255,.72); }
+
+.rb-h2 {
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.6rem);
+  font-weight: 800; letter-spacing: -.025em; line-height: 1.12;
+  margin: .5rem 0 .85rem;
+}
+.rb-sub { font-size: 1rem; color: var(--rb-ink-2); line-height: 1.7; max-width: 62ch; margin-bottom: 2.5rem; }
+
+/* ─── Sistemų kortelės ─── */
+.rb-systems { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1.25rem; }
+.rb-card {
+  background: #fff; border: 1px solid var(--rb-line);
+  border-radius: var(--radius-lg); padding: 1.6rem;
+  display: flex; flex-direction: column; gap: .85rem;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+.rb-card:hover { border-color: var(--rb-ink); box-shadow: var(--shadow); transform: translateY(-2px); }
+.rb-card-head { display: flex; align-items: center; gap: .75rem; }
+.rb-card-icon {
+  width: 38px; height: 38px; border-radius: var(--radius);
+  background: var(--rb-dark); color: #fff;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.rb-card h3 { font-size: 1rem; font-weight: 700; line-height: 1.3; letter-spacing: -.01em; }
+.rb-card-short { font-size: .9rem; color: var(--rb-ink-2); line-height: 1.6; }
+
+.rb-list { display: flex; flex-direction: column; gap: .45rem; }
+.rb-list li { display: flex; gap: .55rem; align-items: flex-start; font-size: .85rem; line-height: 1.5; }
+.rb-list li .icon { margin-top: .18rem; flex-shrink: 0; }
+.rb-list--good li { color: var(--rb-ink-2); }
+.rb-list--good li .icon { color: #1c7a4a; }
+.rb-list--warn li { color: var(--rb-ink-3); }
+.rb-list--warn li .icon { color: #b07a1f; }
+.rb-card-industries {
+  margin-top: auto; padding-top: .85rem; border-top: 1px solid var(--rb-line);
+  font-size: .82rem; color: var(--rb-ink-2); line-height: 1.55;
+}
+.rb-card-industries .eyebrow { display: flex; margin-bottom: .3rem; }
+
+/* ─── Kodėl robotai ─── */
+/* Konteinerio fonas tamsus, o linijas piešia patys elementai – kitaip
+   nelyginis elementų skaičius palieka matomą tuščią langelį. */
+.rb-why { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1px; background: transparent; }
+.rb-why-item {
+  background: var(--rb-dark); padding: 1.5rem 1.4rem;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.12);
+  display: flex; flex-direction: column; gap: .6rem;
+  font-size: .9rem; line-height: 1.55; color: rgba(255,255,255,.84);
+}
+.rb-why-num { font-family: var(--font-mono); font-size: .95rem; color: #5fc8ff; letter-spacing: .05em; }
+.rb-why-end {
+  margin-top: 2rem; font-size: clamp(1.05rem, .95rem + .5vw, 1.35rem);
+  font-weight: 600; line-height: 1.5; color: #fff; max-width: 52ch;
+  padding-left: 1.1rem; border-left: 3px solid #5fc8ff;
+}
+
+/* ─── Laiko juosta ─── */
+.rb-timeline { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; list-style: none; }
+.rb-timeline li { display: grid; grid-template-columns: 76px 1fr; gap: 1.25rem; align-items: start; }
+.rb-timeline li + li { padding-top: 1.5rem; border-top: 1px solid var(--rb-line); }
+.rb-year { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+.rb-timeline p { font-size: .95rem; color: var(--rb-ink-2); line-height: 1.7; }
+@media (max-width: 560px) { .rb-timeline li { grid-template-columns: 1fr; gap: .4rem; } }
+
+/* ─── Palaikymas ─── */
+.rb-support { display: flex; flex-direction: column; gap: .75rem; margin-top: 1.5rem; }
+.rb-support-item {
+  display: flex; gap: .85rem; align-items: flex-start;
+  background: #fff; border: 1px solid var(--rb-line); border-radius: var(--radius);
+  padding: 1.1rem 1.25rem; font-size: .92rem; line-height: 1.6; color: var(--rb-ink-2);
+}
+.rb-support-item .icon { color: var(--accent); flex-shrink: 0; margin-top: .1rem; }
+
+/* ─── Kontaktai ─── */
+.rb-contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 2rem; }
+.rb-contact-col h3 {
+  font-family: var(--font-mono); font-size: .68rem; text-transform: uppercase;
+  letter-spacing: .12em; color: rgba(255,255,255,.5); margin-bottom: 1rem;
+}
+.rb-contact-line {
+  display: flex; gap: .65rem; align-items: flex-start;
+  padding: .6rem 0; color: #fff; text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  transition: color var(--transition);
+}
+.rb-contact-line:last-child { border-bottom: none; }
+.rb-contact-line .icon { color: #5fc8ff; margin-top: .2rem; flex-shrink: 0; }
+.rb-contact-line span { display: flex; flex-direction: column; gap: .1rem; }
+.rb-contact-line strong { font-size: .95rem; font-weight: 600; color: #fff; }
+.rb-contact-line em {
+  font-style: normal; font-family: var(--font-mono);
+  font-size: .68rem; letter-spacing: .06em; color: rgba(255,255,255,.52);
+}
+.rb-contact-line:hover strong { color: #5fc8ff; }
+.rb-addr { font-size: .9rem; line-height: 1.7; color: rgba(255,255,255,.8); }
+.rb-addr--muted { margin-top: .85rem; color: rgba(255,255,255,.5); font-size: .82rem; }
+
+/* ─── Apačia ─── */
+.rb-foot { border-top: 1px solid var(--rb-line); padding: 1.4rem 0; font-size: .78rem; color: var(--rb-ink-3); }
+.rb-foot-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.rb-foot-links { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+.rb-foot-links a { color: var(--rb-ink-2); text-decoration: none; display: inline-flex; align-items: center; gap: .3rem; }
+.rb-foot-links a:hover { color: var(--accent); }
+
 /* ═══════════════ PRINT ═══════════════════════════════════════ */
 
 @media print {

@@ -2,6 +2,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Layout from './components/Layout'
 import Gateway from './pages/Gateway'
+import Robotics from './pages/Robotics'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import ControlUnits from './pages/ControlUnits'
@@ -26,6 +27,7 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Gateway />} />
+        <Route path="/robotics" element={<Robotics />} />
         <Route element={<Layout />}>
           <Route path="autoservisas" element={<Home />} />
           <Route path="pradzia" element={<Navigate to="/autoservisas" replace />} />

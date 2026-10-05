@@ -31,6 +31,7 @@ const distDir = join(__dirname, '..', 'dist')
 const ROUTES = [
   '/',
   '/autoservisas',
+  '/robotics',
   '/autoserviso-paslaugos',
   '/valdymo-bloku-remontas',
   '/valdymo-bloku-remontas/galerija',

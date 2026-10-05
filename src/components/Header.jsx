@@ -46,16 +46,14 @@ export default function Header() {
             </span>
           </div>
 
-          <a
+          <Link
             className="cross-link"
-            href="https://www.tmtrobotics.com"
-            target="_blank"
-            rel="noopener noreferrer"
+            to="/robotics"
             title="UAB TMT antroji veikla – robotinio suvirinimo sistemos"
           >
             TMT Robotics
             <Icon name="arrowRight" size={11} />
-          </a>
+          </Link>
 
           <a
             href="tel:+37037563222"

@@ -33,8 +33,8 @@ const SIDES = [
     tags: ['Robotic laser welding', 'MIG · MAG · TIG · Plasma', 'EN · LT · RU'],
     photo: '/images/galery/kuka_fronius_knuth_ll.jpg',
     alt: 'KUKA robotas su Laserline lazerinio suvirinimo įranga TMT gamybinėje patalpoje',
-    to: 'https://www.tmtrobotics.com',
-    external: true,
+    to: '/robotics',
+    external: false,
     cta: 'Open TMT Robotics',
   },
 ]
