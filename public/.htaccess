@@ -56,4 +56,25 @@
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+  # --- HSTS: SĄMONINGAI NEĮJUNGTAS.
+  # Antraštė teisinga ir jos čia reikia, bet ne šią savaitę: naršyklė ją įsimena metams,
+  # ir atšaukti negalima — galima tik pakeisti max-age ir laukti, kol pasens. Kol tmt.lt
+  # DNS kaip tik keičiamas, viena HTTPS klaida migracijos metu užblokuotų puslapį
+  # visiems, kas jau buvo apsilankę. Įjungti PO migracijos, kai HTTPS tikrai stovi:
+  # Header always set Strict-Transport-Security "max-age=31536000"
+  # Pirma be includeSubDomains — paddomeniai (jei bus) turi suspėti gauti sertifikatus.
+
+  # --- CSP. REPORT-ONLY: niekas neblokuojama, pažeidimai tik rašomi į konsolę.
+  #
+  # Puslapyje gyvas Google Tag Manager (GTM-MTGK88W), o GTM savo prigimtimi įterpia
+  # skriptus, kurių sąrašo iš anksto nežinai — todėl griežtas CSP jam yra nuolatinė
+  # kova, ir jo įjungimas aklai gyvame kliento puslapyje reikštų, kad analitika nustoja
+  # veikti be jokio pranešimo. Report-Only parodo tikrą sąrašą, ko GTM prašo, ir tik
+  # tada galima nuspręsti: leisti tuos adresus, pereiti prie nonce, ar atsisakyti GTM.
+  #
+  # Tikėtini pažeidimai iš karto: GTM įkrovos inline skriptas ir jo įterpiami tag'ai.
+  # Tai žinoma, ne staigmena — klausimas tik, kiek jų ir iš kur.
+  Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; frame-src https://www.googletagmanager.com https://www.youtube.com https://www.google.com https://maps.google.com https://maps.google.lt; base-uri 'self'; form-action 'self'; object-src 'none'"
 </IfModule>
