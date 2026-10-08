@@ -37,6 +37,27 @@ if (!existsSync(checker)) {
 }
 // replaceAll, not a regex: an escaped backslash inside a character class is one slip
 // away from matching only '/', which silently leaves a Windows path in a /bin/sh hook.
+/**
+ * Which ref the recovery line should name.
+ *
+ * Saying "git checkout main -- <checker>" is only true once the checker is actually on
+ * main. While it still lives on an unmerged branch, that line sends people to a ref where
+ * the file does not exist — a refusal with no way out, which is how --no-verify gets
+ * typed. So the ref is resolved at install time: main when main really has the file,
+ * otherwise the branch being installed from, which demonstrably does.
+ */
+function restoreRef(relPath) {
+  for (const ref of ['main', 'HEAD']) {
+    try {
+      git('cat-file', '-e', `${ref}:${relPath}`);
+      return ref === 'HEAD' ? git('rev-parse', '--abbrev-ref', 'HEAD') : ref;
+    } catch {
+      /* not in that ref — try the next */
+    }
+  }
+  return 'main';
+}
+
 const rel = relative(root, checker).replaceAll('\\', '/');
 
 mkdirSync(hooks, { recursive: true });
@@ -69,7 +90,7 @@ done
 echo "pre-commit: check-secrets.mjs is not in this worktree - COMMIT REFUSED." >&2
 echo "  Without it the commit cannot be scanned for secrets, and an unscanned commit" >&2
 echo "  must not look like a scanned one. Restore the scanner, then commit again:" >&2
-echo "    git checkout main -- ${rel}" >&2
+echo "    git checkout ${restoreRef(rel)} -- ${rel}" >&2
 exit 1
 `,
 );
