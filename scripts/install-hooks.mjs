@@ -44,13 +44,20 @@ const path = resolve(hooks, 'pre-commit');
 
 /**
  * One hooks directory serves every worktree of the repository, but the checker is a file
- * inside the branch being committed. So the hook must not name a single fixed path: a
- * worktree on a branch that predates the checker, or one that keeps its scripts in the
- * other directory, would otherwise fail every commit with "cannot find module" — which is
- * how a security tool teaches people to reach for --no-verify.
+ * inside the branch being committed — so the hook looks for it rather than naming one
+ * fixed path.
  *
- * It therefore looks for the checker, runs it if it is there, and says plainly when it is
- * not. A skipped scan that announces itself is recoverable; a broken commit is not.
+ * When it does not find it, the hook STOPS THE COMMIT. The first version of this file let
+ * the commit through with a warning on stderr, reasoning that "a skipped scan that
+ * announces itself is recoverable; a broken commit is not". That reasoning was wrong, and
+ * this repo is the proof: the checker sat on an unmerged branch (saugumas/apsauga) for the
+ * whole of main's history, every commit printed the warning into the noise of a normal
+ * `git commit`, and every commit went unscanned while the hook file on disk looked like
+ * working protection. A commit that stops tells you in one second what a skipped scan
+ * hides for weeks — 30-patterns/apsauga-irodoma-ja-paleidus.md.
+ *
+ * The message says how to get the checker back, so the way out of a branch that predates
+ * it is to restore the protection rather than to reach for --no-verify.
  */
 writeFileSync(
   path,
@@ -59,7 +66,11 @@ writeFileSync(
 for f in tools/check-secrets.mjs scripts/check-secrets.mjs; do
   [ -f "$f" ] && exec node "$f"
 done
-echo "pre-commit: check-secrets.mjs is not in this worktree - secret scan SKIPPED." >&2
+echo "pre-commit: check-secrets.mjs is not in this worktree - COMMIT REFUSED." >&2
+echo "  Without it the commit cannot be scanned for secrets, and an unscanned commit" >&2
+echo "  must not look like a scanned one. Restore the scanner, then commit again:" >&2
+echo "    git checkout main -- ${rel}" >&2
+exit 1
 `,
 );
 try {
