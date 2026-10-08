@@ -1,0 +1,140 @@
+/**
+ * Refuses a commit that contains something that looks like a secret.
+ *
+ * Runs from the pre-commit hook (installed by `npm install` via the `prepare`
+ * script) against the staged content, or over the whole tree / full history:
+ *
+ *   node tools/check-secrets.mjs            # staged changes (pre-commit)
+ *   node tools/check-secrets.mjs --tree     # every tracked file
+ *   node tools/check-secrets.mjs --history  # every commit on every branch
+ *
+ * The public Supabase key (sb_publishable_ / anon) is allowed: it is designed
+ * to ship in the browser bundle and is protected by row-level security. The
+ * service-role key is not — see IS_ANON_JWT below for how the two are told apart.
+ */
+import { execSync } from 'node:child_process';
+
+/* The names this project actually keeps secret, from lib/konfig.php and .env.pavyzdys:
+   DB_PASS, STRIPE_SECRET, STRIPE_WEBHOOK_SECRET, IKELIMO_RAKTAS, KASDIEN_RAKTAS.
+   They are listed by name as well as by shape, because a value pasted out of
+   .env.local carries no prefix to recognise it by — only the key beside it.
+   `raktas` alone is deliberately NOT here: in this repo it usually means an ordinary
+   key — a localStorage name, a `data-raktas` page id, `SAVAEIGIO_UZRAKTAS`. Listing it
+   produced eight findings and not one secret, and a scanner with eight false positives
+   is read once and then skipped. The two secret ones are named outright instead. */
+const SECRET_NAME = String.raw`(?:ikelimo_raktas|kasdien_raktas|[A-Za-z0-9_]*(?:api|secret|slaptas)[_-]raktas|[A-Za-z0-9_]*(?:password|passwd|pwd|secret|token|api[_-]?key|slaptazodis)|db_pass)`;
+
+const RULES = [
+  // Stripe — the keys this repo really uses (konfig('STRIPE_SECRET'), konfig('STRIPE_WEBHOOK_SECRET')).
+  [/\b(?:sk|rk)_live_[A-Za-z0-9]{10,}/, 'Stripe live secret key'],
+  [/\b(?:sk|rk)_test_[A-Za-z0-9]{10,}/, 'Stripe test secret key'],
+  [/\bwhsec_[A-Za-z0-9]{16,}/, 'Stripe webhook secret'],
+  // Supabase.
+  [/sb_secret_[A-Za-z0-9_-]{10,}/, 'Supabase secret key'],
+  [/\bservice_role\b["']?\s*[:=]\s*["'][A-Za-z0-9._-]{20,}/, 'Supabase service-role key'],
+  [/eyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}/, 'JWT'],
+  // MySQL — this project's database (Hostinger), both the URL form and the PDO DSN.
+  [/\bmysqli?:\/\/[^\s:/]+:[^\s@]{4,}@/, 'MySQL connection string with password'],
+  [/\bmysql:host=[^\s'"]+[^\s'"]*;[^\s'"]*(?:password|pwd)=[^\s'";]{4,}/i, 'MySQL DSN with password'],
+  [/\bnew\s+(?:mysqli|PDO)\s*\([^)]*,\s*["'][^"'\s]{6,}["']\s*\)/, 'database password passed inline'],
+  [/postgres(?:ql)?:\/\/[^\s:/]+:[^\s@]{4,}@/, 'database connection string with password'],
+  // .env content — a KEY=value line with a secret-looking name and a filled-in value,
+  // wherever it turns up: a renamed .env, a README, a pasted snippet in a PHP comment.
+  // The value must be a bare literal and reach the end of the line. That end anchor is what
+  // separates a leak from the correct way to read one: `password=c["DB_PASS"],` in
+  // tools/db/db.py and `var RAKTAS = "atspyris.krepselis";` both end in punctuation that a
+  // pasted secret does not. The line start is deliberately NOT anchored — an .env body
+  // pasted into a README or a PHP comment carries a prefix.
+  [new RegExp(String.raw`${SECRET_NAME}\s*=\s*["']?[A-Za-z0-9+/=._-]{6,}["']?\s*$`, 'mi'), '.env line with a filled secret'],
+  // Generic "api key" shapes.
+  [new RegExp(String.raw`\b${SECRET_NAME}\s*[:=]\s*["'][^"'\s]{8,}["']`, 'i'), 'hard-coded password/secret'],
+  [new RegExp(String.raw`\b${SECRET_NAME}["']?\s*=>\s*["'][^"'\s]{8,}["']`, 'i'), 'hard-coded password/secret'],
+  [/\b(?:smtp|mail)[_-]?(?:pass|password|pwd)\s*[:=]\s*["'][^"'\s]{4,}/i, 'SMTP password'],
+  [/\bgh[pousr]_[A-Za-z0-9]{30,}/, 'GitHub token'],
+  [/github_pat_[A-Za-z0-9_]{40,}/, 'GitHub fine-grained token'],
+  [/\bAKIA[0-9A-Z]{16}\b/, 'AWS access key'],
+  [/-----BEGIN (?:RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY-----/, 'private key'],
+  [/\bxox[baprs]-[A-Za-z0-9-]{10,}/, 'Slack token'],
+  [/\bsk-[A-Za-z0-9]{32,}/, 'OpenAI-style API key'],
+  [/\bAIza[0-9A-Za-z_-]{35}\b/, 'Google API key'],
+];
+
+const FORBIDDEN_PATHS = [/(^|\/)\.env(\..+)?$/, /\.pem$/, /\.p12$/, /\.pfx$/, /(^|\/)id_(rsa|ed25519)(\.pub)?$/, /(^|\/)\.npmrc$/, /(^|\/)veetesa-konfig\.php$/, /(^|\/)supabase\/\.temp\//, /(^|\/)\.supabase\//];
+// A file whose name ends in .example or .pavyzdys is a template of a secrets file, not
+// one: both spellings are allowed, because the Lithuanian one is what this repo uses
+// (.env.pavyzdys). This file is allowed too — it is made of patterns, not of secrets.
+const ALLOWED_PATHS = [/\.(example|pavyzdys)$/, /(^|\/)check-secrets\.mjs$/, /\.test\.tsx?$/];
+// Obvious placeholders that documentation uses on purpose. `demo` is here because a
+// demonstration login is meant to be public — dvipuses prints its own in the README —
+// and a scanner that cries about it teaches people to stop reading its output.
+const PLACEHOLDER = /(\.\.\.|<[^>]+>|YOUR[-_]|xxxx|XXXX|srvNNN|example|pavyzdys|demo|placeholder|\$\{|\{\{|\$_|getenv|konfig\()/i;
+/* A Supabase anon key is a JWT and belongs in the browser bundle; a service-role key is
+   the same shape and must never be committed. The payload says which, so it is read
+   rather than guessed — otherwise the JWT rule would either block assets/js/config.js
+   or wave the dangerous half of the pair through. */
+const IS_ANON_JWT = (m) => {
+  if (!m.startsWith('eyJ')) return false;
+  try {
+    const payload = JSON.parse(Buffer.from(m.split('.')[1], 'base64url').toString('utf8'));
+    return payload.role === 'anon';
+  } catch {
+    return false;
+  }
+};
+
+const mode = process.argv[2] ?? '--staged';
+const sh = (cmd) => execSync(cmd, { encoding: 'utf8', maxBuffer: 1 << 28 });
+// Reading one file's content is allowed to fail (binary, deleted, staged-but-not-committed),
+// and the caller handles that — so git's own "fatal:" must not reach the terminal and read
+// like the scan itself broke.
+const shQuiet = (cmd) => execSync(cmd, { encoding: 'utf8', maxBuffer: 1 << 28, stdio: ['ignore', 'pipe', 'ignore'] });
+
+function scanText(label, text, findings) {
+  text.split('\n').forEach((line, i) => {
+    if (line.length > 4000) return; // minified bundles
+    for (const [re, what] of RULES) {
+      const m = re.exec(line);
+      if (!m || PLACEHOLDER.test(m[0]) || IS_ANON_JWT(m[0])) continue;
+      findings.push(`${label}:${i + 1}  ${what}  →  ${m[0].slice(0, 12)}…`);
+    }
+  });
+}
+
+const findings = [];
+
+if (mode === '--history') {
+  const commits = sh('git rev-list --all').split('\n').filter(Boolean);
+  for (const c of commits) {
+    const diff = sh(`git show ${c} --format= --unified=0 --no-color`);
+    scanText(`commit ${c.slice(0, 8)}`, diff.split('\n').filter((l) => l.startsWith('+')).join('\n'), findings);
+  }
+} else {
+  const files =
+    mode === '--tree'
+      ? sh('git ls-files').split('\n').filter(Boolean)
+      : sh('git diff --cached --name-only --diff-filter=ACMR').split('\n').filter(Boolean);
+  for (const f of files) {
+    if (ALLOWED_PATHS.some((re) => re.test(f))) continue;
+    if (FORBIDDEN_PATHS.some((re) => re.test(f))) {
+      findings.push(`${f}  must never be committed (add it to .gitignore)`);
+      continue;
+    }
+    let content;
+    try {
+      content = mode === '--tree' ? shQuiet(`git show HEAD:"${f}"`) : shQuiet(`git show :"${f}"`);
+    } catch {
+      continue; // binary or deleted
+    }
+    if (content.includes('\0')) continue;
+    scanText(f, content, findings);
+  }
+}
+
+if (findings.length) {
+  console.error('\n✖ Possible secrets found — commit refused:\n');
+  for (const f of findings) console.error('  ' + f);
+  console.error('\nMove the value into .env.local / the config file outside public_html and reference it by name (konfig()).');
+  console.error('If this is a false positive, adjust ALLOWED_PATHS or PLACEHOLDER in tools/check-secrets.mjs.\n');
+  process.exit(1);
+}
+console.log(`✓ no secrets found (${mode.replace('--', '')})`);
