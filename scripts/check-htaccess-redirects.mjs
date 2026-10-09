@@ -19,9 +19,9 @@
 
 /* Taisyklių modelis – turi atitikti public/.htaccess eiliškumą. */
 function applyRules({ scheme, host, path }) {
-  // 1) bare -> www
-  if (!/^www\./i.test(host)) {
-    return { scheme: 'https', host: 'www.' + host, path, rule: 'bare->www' }
+  // 1) tmt.lt -> www.tmt.lt  (TIKSLUS apex, ne „viskas, kas ne www")
+  if (/^tmt\.lt$/i.test(host)) {
+    return { scheme: 'https', host: 'www.tmt.lt', path, rule: 'apex->www' }
   }
   // 2) http -> https
   if (scheme !== 'https') {
@@ -35,10 +35,20 @@ const url = ({ scheme, host, path }) => `${scheme}://${host}${path}`
 /* Kiekviena šaka priverčiama suveikti atskirai – ne tik ta,
    kurią pasiekia kasdienis srautas. */
 const CASES = [
-  { name: 'bare + http',  start: { scheme: 'http',  host: 'tmt.lt',     path: '/kontaktai' } },
-  { name: 'bare + https', start: { scheme: 'https', host: 'tmt.lt',     path: '/kontaktai' } },
-  { name: 'www + http',   start: { scheme: 'http',  host: 'www.tmt.lt', path: '/kontaktai' } },
-  { name: 'www + https',  start: { scheme: 'https', host: 'www.tmt.lt', path: '/kontaktai' } },
+  { name: 'bare + http',  start: { scheme: 'http',  host: 'tmt.lt',     path: '/kontaktai' }, galas: 'https://www.tmt.lt/kontaktai' },
+  { name: 'bare + https', start: { scheme: 'https', host: 'tmt.lt',     path: '/kontaktai' }, galas: 'https://www.tmt.lt/kontaktai' },
+  { name: 'www + http',   start: { scheme: 'http',  host: 'www.tmt.lt', path: '/kontaktai' }, galas: 'https://www.tmt.lt/kontaktai' },
+  { name: 'www + https',  start: { scheme: 'https', host: 'www.tmt.lt', path: '/kontaktai' }, galas: 'https://www.tmt.lt/kontaktai' },
+
+  /* Hostai, kurių taisyklė NETURI liesti. Būtent čia buvo spraga: sąlyga
+     „viskas, kas ne www" juos nukreipdavo į neegzistuojantį www.<hostas>.
+     Peržiūros domenas yra realus atvejis, ne hipotetinis. */
+  { name: 'staging https', start: { scheme: 'https', host: 'blueviolet-rhinoceros.hostingersite.com', path: '/kontaktai' },
+    galas: 'https://blueviolet-rhinoceros.hostingersite.com/kontaktai' },
+  { name: 'staging http',  start: { scheme: 'http',  host: 'blueviolet-rhinoceros.hostingersite.com', path: '/kontaktai' },
+    galas: 'https://blueviolet-rhinoceros.hostingersite.com/kontaktai' },
+  { name: 'subdomenas',    start: { scheme: 'https', host: 'staging.tmt.lt', path: '/kontaktai' },
+    galas: 'https://staging.tmt.lt/kontaktai' },
 ]
 
 const MAX_HOPS = 3
@@ -46,7 +56,7 @@ let failed = 0
 
 console.log('\n.htaccess nukreipimų patikra — kanoninis hostas www.tmt.lt\n')
 
-for (const { name, start } of CASES) {
+for (const { name, start, galas } of CASES) {
   const seen = [url(start)]
   let cur = start
   let hops = 0
@@ -66,8 +76,8 @@ for (const { name, start } of CASES) {
   }
 
   if (verdict === 'ok' && hops > MAX_HOPS) verdict = `per daug šuolių (${hops})`
-  if (verdict === 'ok' && url(cur) !== 'https://www.tmt.lt/kontaktai') {
-    verdict = `baigė ne ties kanoniniu adresu: ${url(cur)}`
+  if (verdict === 'ok' && url(cur) !== galas) {
+    verdict = `baigė ne ten, kur turi: ${url(cur)} (laukta ${galas})`
   }
 
   const ok = verdict === 'ok'

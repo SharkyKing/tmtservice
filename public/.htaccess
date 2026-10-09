@@ -26,9 +26,18 @@
   # URL. Viena taisyklė negali taisyti dviejų skirtingų dalykų, nes
   # pakeitimas yra vienas. Žr. vault/apsauga-irodoma-ja-paleidus.
 
-  # 1) bare -> www (iš karto į https, kad nebūtų dvigubo šuolio)
-  RewriteCond %{HTTP_HOST} !^www\. [NC]
-  RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # 1) tmt.lt -> www.tmt.lt
+  #
+  # Sąlyga TIKSLI (^tmt\.lt$), ne „viskas, kas ne www". Platesnė forma
+  # `!^www\.` tenkinama ir bet kokiam kitam hostui, tad Hostinger laikinas
+  # domenas (*.hostingersite.com) būtų nukreiptas į www.<tas domenas>,
+  # kurio DNS įrašo nėra – peržiūra tiesiog neatsidarytų. Tas pats galiotų
+  # būsimam staging.tmt.lt.
+  #
+  # Tikslas įrašytas raidėmis, ne per %{HTTP_HOST}: taip pakeitimas negali
+  # netyčia perkelti hosto, kurio nesitikime.
+  RewriteCond %{HTTP_HOST} ^tmt\.lt$ [NC]
+  RewriteRule ^ https://www.tmt.lt%{REQUEST_URI} [L,R=301]
 
   # 2) http -> https (hostas jau su www, tad pakeitimas nekeičia hosto)
   RewriteCond %{HTTPS} !=on
