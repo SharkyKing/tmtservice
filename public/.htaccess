@@ -66,15 +66,19 @@
   # Header always set Strict-Transport-Security "max-age=31536000"
   # Pirma be includeSubDomains — paddomeniai (jei bus) turi suspėti gauti sertifikatus.
 
-  # --- CSP. REPORT-ONLY: niekas neblokuojama, pažeidimai tik rašomi į konsolę.
+  # --- CSP. ĮJUNGTAS (ne Report-Only).
   #
-  # Puslapyje gyvas Google Tag Manager (GTM-MTGK88W), o GTM savo prigimtimi įterpia
-  # skriptus, kurių sąrašo iš anksto nežinai — todėl griežtas CSP jam yra nuolatinė
-  # kova, ir jo įjungimas aklai gyvame kliento puslapyje reikštų, kad analitika nustoja
-  # veikti be jokio pranešimo. Report-Only parodo tikrą sąrašą, ko GTM prašo, ir tik
-  # tada galima nuspręsti: leisti tuos adresus, pereiti prie nonce, ar atsisakyti GTM.
+  # Report-Only etapas baigtas 2026-10-09: konsolė perskaityta IŠDIEGTAME puslapyje
+  # (blueviolet-rhinoceros staging), ir pažeidimas buvo vienas — GTM įkrovos inline
+  # skriptas. Įterptų tag'ų pažeidimų nebuvo, o GTM tikrai veikė (konteineris GTM-MTGK88W,
+  # dataLayer užpildytas), tad tyla nebuvo dėl to, kad jis nepaleistas.
   #
-  # Tikėtini pažeidimai iš karto: GTM įkrovos inline skriptas ir jo įterpiami tag'ai.
-  # Tai žinoma, ne staigmena — klausimas tik, kiek jų ir iš kur.
-  Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; frame-src https://www.googletagmanager.com https://www.youtube.com https://www.google.com https://maps.google.com https://maps.google.lt; base-uri 'self'; form-action 'self'; object-src 'none'"
+  # Tas vienas skriptas dabar leidžiamas pagal sha256, ne per 'unsafe-inline'. Maišą
+  # generuoja scripts/build-csp.mjs iš GALUTINIO dist HTML ir įrašo ČIA, į dist/.htaccess —
+  # repo failas lieka su žymomis, nes build'as diegiant visada paleidžiamas.
+  #
+  # Perjungus į tmt.lt verta konsolę perskaityti dar kartą: GTM konteinerio tag'ai gali
+  # turėti domenu ribojamus paleidiklius, kurie staging'e nesuveikia.
+  # __CSP__ pradžia — generuoja scripts/build-csp.mjs, ranka neredaguoti
+  # __CSP__ galas
 </IfModule>

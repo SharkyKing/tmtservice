@@ -7,10 +7,10 @@
     "prepare": "node scripts/install-hooks.mjs",
     "secrets": "node scripts/check-secrets.mjs --tree",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/build-csp.mjs",
     "preview": "vite preview",
     "prerender": "node scripts/prerender.mjs",
-    "build:seo": "npm run build && npm run prerender"
+    "build:seo": "vite build && npm run prerender && node scripts/build-csp.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
