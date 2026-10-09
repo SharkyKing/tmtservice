@@ -7,10 +7,11 @@
     "prepare": "node scripts/install-hooks.mjs",
     "secrets": "node scripts/check-secrets.mjs --tree",
     "dev": "vite",
-    "build": "vite build && node scripts/build-csp.mjs",
+    "build": "npm run check:redirects && vite build && node scripts/build-csp.mjs",
     "preview": "vite preview",
     "prerender": "node scripts/prerender.mjs",
-    "build:seo": "vite build && npm run prerender && node scripts/build-csp.mjs"
+    "build:seo": "npm run check:redirects && vite build && npm run prerender && node scripts/build-csp.mjs",
+    "check:redirects": "node scripts/check-htaccess-redirects.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

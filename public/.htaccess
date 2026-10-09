@@ -12,9 +12,26 @@
   RewriteEngine On
   RewriteBase /
 
-  # HTTPS ir www nuėmimas vienu peradresavimu
-  RewriteCond %{HTTPS} !=on [OR]
-  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  # ── Kanoninis hostas: www.tmt.lt ──────────────────────────────
+  # Kryptis pasirinkta ne iš skonio: tmt.lt istoriškai nukreipia
+  # bare -> www (patikrinta 2026-10-09: https://tmt.lt/robots.txt -> 301 ->
+  # https://www.tmt.lt/robots.txt), ir visi canonical tag'ai, sitemap.xml
+  # bei robots.txt rodo į www. Pakeitus kryptį gautume suskaldytą
+  # indeksavimą tiksliai tada, kai Google skaitys naujus URL.
+  #
+  # DVI ATSKIROS TAISYKLĖS, NE VIENA SU [OR].
+  # Ankstesnė forma `RewriteCond %{HTTPS} !=on [OR]` + `^www\.` ->
+  # `https://%{HTTP_HOST}` sukūrė begalinį ciklą: sąlyga suveikdavo www
+  # adresui, o %{HTTP_HOST} vis dar nešdavo www, tad 301 vesdavo į tą patį
+  # URL. Viena taisyklė negali taisyti dviejų skirtingų dalykų, nes
+  # pakeitimas yra vienas. Žr. vault/apsauga-irodoma-ja-paleidus.
+
+  # 1) bare -> www (iš karto į https, kad nebūtų dvigubo šuolio)
+  RewriteCond %{HTTP_HOST} !^www\. [NC]
+  RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 2) http -> https (hostas jau su www, tad pakeitimas nekeičia hosto)
+  RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
   # ── Seni tmt.lt URL → nauji (301, dėl Google reitingo) ──
